@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "title": "Wooden",
+  "version": 2,
+  "settings": {
+    "color": {
+      "palette": [
+        {
+          "slug": "raft-bg",
+          "color": "#EFECE7",
+          "name": "Background"
+        },
+        {
+          "slug": "raft-fg",
+          "color": "#202020",
+          "name": "Text"
+        },
+        {
+          "slug": "raft-accent",
+          "color": "#544636",
+          "name": "Accent"
+        },
+        {
+          "slug": "raft-accent-secondary",
+          "color": "#3E3428",
+          "name": "Accent Secondary"
+        },
+        {
+          "slug": "raft-bg-inv",
+	        "color": "#27211A",
+	        "name": "Dark Background"
+        },
+        {
+          "slug": "raft-bg-alt",
+          "color": "rgba(255, 255, 255, 0.5)",
+          "name": "Light Background"
+        },
+        {
+          "slug": "raft-fg-alt",
+          "color": "#FFFFFF",
+          "name": "Inverted Text"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--lora)"
+    }
+  }
+}
