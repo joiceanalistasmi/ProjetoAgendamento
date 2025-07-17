@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agendamento de Exame Ocupacional</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="funcao.js"></script>
   </head>
   <body class="bg-light py-5">
     <div class="container">
@@ -15,7 +16,8 @@
              <h2 class="card-title text-center mb-4">Agendamento para perícia médica -- Segurança do trabalho</h2>
               <h2 class="card-title text-center mb-4">Formulário de Agendamento</h2>
 
-              <form action="processar_agendamento.php" method="POST">
+              <form action="processar_agendamento.php" name="formAgenda" id="formAgenda" 
+                            method="POST" onsubmit="return validarCampos(document.formAgenda)";>
                 <div class="mb-3">
                   <label for="nome_servidor" class="form-label">Nome do Servidor</label>
                   <input type="text" class="form-control" id="nome_servidor" name="nome_servidor" maxlength="100" required>
