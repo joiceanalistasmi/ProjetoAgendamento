@@ -13,7 +13,7 @@
         <div class="col-md-8 col-lg-6">
           <div class="card shadow-sm">
             <div class="card-body">
-             <h2 class="card-title text-center mb-4">Agendamento para perícia médica -- Segurança do trabalho</h2>
+             <h2 class="card-title text-center mb-4">Agendamento para perícia médica - Segurança do trabalho</h2>
               <h2 class="card-title text-center mb-4">Formulário de Agendamento</h2>
 
               <form action="processar_agendamento.php" name="formAgenda" id="formAgenda" 
@@ -21,6 +21,14 @@
                 <div class="mb-3">
                   <label for="nome_servidor" class="form-label">Nome do Servidor</label>
                   <input type="text" class="form-control" id="nome_servidor" name="nome_servidor" maxlength="100" required>
+                </div>
+                <div class="mb-3">
+                  <label for="tipo" class="form-label">Tipo de Usuário</label>
+                  <select id="tipo" name="tipo_de_usuario" class="form-select" required>
+                    <option value="">-- Selecione --</option>
+                    <option value="consulta">Servidor público</option>
+                    <option value="atestado">Acompanhante</option>
+                  </select>
                 </div>
 
                 <div class="mb-3">
