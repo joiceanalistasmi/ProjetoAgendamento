@@ -3,11 +3,13 @@
 $host = 'localhost';
 $user = 'root';
 $password = '';
-$bancoDeDados  = 'wordpress_local';
+$database = 'wordpress_local';
 
-$conexao = new mysqli($host, $user, $password, $bancoDeDados);
+$conexao = new mysqli($host, $user, $password, $database);
 
 if ($conexao->connect_error) {
     die("Conexão falhou: " . $conexao->connect_error);
 }
+
+$conexao->set_charset("utf8");
 ?>
