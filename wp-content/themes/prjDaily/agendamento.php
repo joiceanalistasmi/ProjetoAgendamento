@@ -51,17 +51,18 @@
                 </div>
 
                 <div class="mb-3">
-                  <label for="horario" class="form-label">Horário</label>
-                  <input type="time" class="form-control" id="horario" name="horario" step="600" required>
-                </div>
-
-                <div class="mb-3">
                   <label for="turno" class="form-label">Turno</label>
                   <select id="turno" name="turno" class="form-select" required>
                     <option value="">-- Selecione --</option>
                     <option value="manhã">Manhã</option>
                     <option value="tarde">Tarde</option>
                   </select>
+                </div>
+
+                
+                <div class="mb-3">
+                  <label for="horario" class="form-label">Horário</label>
+                  <input type="time" class="form-control" id="horario" name="horario" step="600" required>
                 </div>
 
                 <div class="mb-4">
