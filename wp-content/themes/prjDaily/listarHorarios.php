@@ -1,5 +1,6 @@
 <?php
 include("conexao.php");
+
 echo "<html>
       <head>
           <title>Listar Horários</title>
@@ -16,11 +17,15 @@ echo "<table border='1' cellpadding='5' cellspacing='0'>";
 echo "<tr><th>Horário</th><th>Turno</th></tr>";
 
 while ($dados = mysqli_fetch_assoc($sqlBuscarHorarios)) {
+    $id = $dados["id"];
     $horario = $dados["horario"];
     $turno = $dados["turno"];
     echo "<tr>
             <td>$horario</td>
             <td>$turno</td>
+           <td> <a href='alterarHorario.php?id=$id'><button>Alterar</button></a> 
+           <a href='excluirHorario.php?id=$id' onclick=\"return confirm('Tem certeza que deseja excluir?');\">
+                 <button>Excluir</button></a> </td>
           </tr>";
 }
 
