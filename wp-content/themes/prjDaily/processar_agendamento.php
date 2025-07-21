@@ -9,7 +9,7 @@ if (
 ) {
 
     $nome_servidor = $_POST["nome_servidor"];
-    $tipo = $_POST["tipo_de_usuario"];
+    $tipo_de_usuario = $_POST["tipo_de_usuario"];
     $email = $_POST["email"];
     $tipo = $_POST["tipo"];
     $data_agendamento = $_POST["data_agendamento"];
@@ -38,5 +38,7 @@ if (
     exit;
     session_destroy();
 }
+
+//verificar se horario esta disponivel para o agendamento, pois o horario pode estar ocupado por outro servidor
 
 ?>

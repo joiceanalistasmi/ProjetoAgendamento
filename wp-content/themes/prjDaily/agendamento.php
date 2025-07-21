@@ -25,7 +25,6 @@
                 <div class="mb-3">
                   <label for="tipo" class="form-label">Tipo de Usuário</label>
                   <select id="tipo" name="tipo_de_usuario" class="form-select" required>
-                    <option value="">-- Selecione --</option>
                     <option value="consulta">Servidor público</option>
                     <option value="atestado">Acompanhante</option>
                   </select>
@@ -39,7 +38,6 @@
                 <div class="mb-3">
                   <label for="tipo" class="form-label">Tipo de Atendimento</label>
                   <select id="tipo" name="tipo" class="form-select" required>
-                    <option value="">-- Selecione --</option>
                     <option value="consulta">Consulta</option>
                     <option value="atestado">Atestado</option>
                   </select>
@@ -51,20 +49,20 @@
                 </div>
 
                 <div class="mb-3">
-                  <label for="turno" class="form-label">Turno</label>
-                  <select id="turno" name="turno" class="form-select" required>
-                    <option value="">-- Selecione --</option>
-                    <option value="manhã">Manhã</option>
-                    <option value="tarde">Tarde</option>
-                  </select>
-                </div>
+                <label for="turno" class="form-label">Turno</label>
+                <select id="turno" name="turno" class="form-select" required>
+                  <option value="">Selecione </option>
+                  <option value="manhã">Manhã</option>
+                  <option value="tarde">Tarde</option>
+                </select>
+              </div>
 
-                
-                <div class="mb-3">
-                  <label for="horario" class="form-label">Horário</label>
-                  <input type="time" class="form-control" id="horario" name="horario" step="600" required>
-                </div>
-
+              <div class="mb-3">
+                <label for="horario" class="form-label">Horário</label>
+                <select id="horario" name="horario" class="form-select" required>
+                  <option value="">Selecione o turno primeiro</option>
+                </select>
+              </div>
                 <div class="mb-4">
                   <label for="status" class="form-label">Status</label>
                   <select id="status" name="status" class="form-select" required>
@@ -79,7 +77,6 @@
                   <button type="reset" class="btn btn-secondary">Limpar</button>
                 </div>
               </form>
-
             </div>
           </div>
         </div>
@@ -87,5 +84,35 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+  
+<script>
+  const horariosPorTurno = {
+    manhã: ['07:30',  '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00'],
+    tarde: ['13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30']
+  };
+
+  document.getElementById('turno').addEventListener('change', function () {
+    const turno = this.value;
+    const horarioSelect = document.getElementById('horario');
+
+    // Limpa opções anteriores
+    horarioSelect.innerHTML = '';
+
+    if (turno && horariosPorTurno[turno]) {
+      horariosPorTurno[turno].forEach(hora => {
+        const option = document.createElement('option');
+        option.value = hora;
+        option.textContent = hora;
+        horarioSelect.appendChild(option);
+      });
+    } else {
+      const option = document.createElement('option');
+      option.value = '';
+      option.textContent = '-- Selecione o turno primeiro --';
+      horarioSelect.appendChild(option);
+    }
+  });
+</script> 
+                     
   </body>
 </html>
