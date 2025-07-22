@@ -1,17 +1,24 @@
 <?php
-//https://ultramsg.com/pt/home/articles/how-to-send-message-by-whatsapp-api-using-php.php
+// https://ultramsg.com/pt/home/articles/how-to-send-message-by-whatsapp-api-using-php.php
 
-require_once ('vendor/autoload.php'); // if you use Composer
-//require_once('ultramsg.class.php'); // if you download ultramsg.class.php
-	
-$token="tof7lsdJasdloaa57e"; // Ultramsg.com token
-$instance_id="instance1150"; // Ultramsg.com instance id
-$client = new UltraMsg\WhatsAppApi($token,$instance_id);
-	
-$to="put_your_mobile_number_here"; 
-$body="Hello world"; 
-$api=$client->sendChatMessage($to,$body);
+require __DIR__ . '/vendor/autoload.php';
+
+
+$token = "f9adf312-b65e-4f3e-b1e5-xxxxx"; // token real
+$instance_id = "1234"; // id real da instância
+
+$client = new UltraMsg\WhatsAppApi($token, $instance_id);
+
+
+$to = "5545999542363";
+$body = "Hello world";
+$api = $client->sendChatMessage($to, $body);
+if ($api->status == "success") {
+    echo "Message sent successfully!";
+} else {
+    echo "Error: " . $api->message;
+}
+
+echo "<pre>";
 print_r($api);
-
-?>
- 
+echo "</pre>";

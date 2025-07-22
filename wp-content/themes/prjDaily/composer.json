@@ -25,8 +25,14 @@
     ],
     "autoload": {
         "classmap": [
-            "ultramsg.class.php"
+            "UltraMsg.php"
         ]
-    },
-    "require": {}
+    }, 
+    
+   "require": {"ultramsg/whatsapp-php-sdk": "dev-main"},
+   "minimum-stability": "dev",
+   "prefer-stable": true
+
+ 
+ 
 }

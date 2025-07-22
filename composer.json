@@ -1,0 +1,12 @@
+{
+    "name": "vendor/composer-agenda",
+    "description": "sistema de pericia médica da segurança do trabalho",
+    "autoload": {
+        "psr-4": {
+            "Vendor\\ComposerAgenda\\": "src/"
+        }
+    },
+    "require": {
+        "ultramsg/whatsapp-php-sdk": "dev-main"
+    }
+}
