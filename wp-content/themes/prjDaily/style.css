@@ -46,7 +46,7 @@ th {
     padding: 6px 14px;
     margin: 0 2px;
     font-size: 0.95em;
-    border: none;
+    border: ridge;
     border-radius: 4px;
     text-decoration: none;
     color: #fff;
