@@ -9,6 +9,7 @@ function validarCampos(formAgenda){
     }
 }
 // funcao para o modal 
+window.onload = function(){
 document.querySelectorAll('.visualizar-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
         var details = JSON.parse(this.getAttribute('data-details'));
@@ -28,4 +29,5 @@ window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = 'none';
     }
+};
 };

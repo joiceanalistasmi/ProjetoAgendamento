@@ -5,6 +5,8 @@ h2 {
 }
 
 table {
+    width: auto;
+    table-layout: auto;
     border-spacing: 0;
     margin: 20px 0;
     font-size: 0.9em;
@@ -68,7 +70,7 @@ th {
     background-color: #c0392b;
 }
 
-/* campos de modal*/
+/* campos de modal para visualzar detalhes de agendamento */
 .modal {
     display: none;
     position: fixed;
