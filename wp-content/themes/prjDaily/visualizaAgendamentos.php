@@ -1,24 +1,28 @@
 <?php
 include("conexao.php");
 session_start();
-echo "<!DOCTYPE html>";
-echo "<html lang='pt-BR'>";
-echo "<head>
-        <meta charset='UTF-8'>
-        <title>Visualização de Agendamentos</title>
-        <link rel='stylesheet' href='style.css'>
-      </head>
-      <body>";
+?>
+<!DOCTYPE html>
+<html lang='pt-BR'>
 
-echo "<h2>Visualizar agendamentos de Perícia Médica - Segurança do Trabalho</h2>";
+<head>
+    <meta charset='UTF-8'>
+    <title>Visualização de Agendamentos</title>
+    <link rel='stylesheet' href='style.css'>
+    <script src="funcao.js"></script>
+</head>
 
-$sqlVisualizarAgendamentos = 
-    mysqli_query($conexao, "SELECT * FROM agendamentos ORDER BY data_agendamento DESC") 
-    or die("Erro ao consultar agendamentos. " . mysqli_error($conexao));
+<body>
+    <h2>Visualizar agendamentos de Perícia Médica - Segurança do Trabalho</h2>
 
-if (mysqli_num_rows($sqlVisualizarAgendamentos) > 0) {
-    echo "<table class='table table-striped' border='1'>";
-    echo "<thead>
+    <?php
+    $sqlVisualizarAgendamentos =
+        mysqli_query($conexao, "SELECT * FROM agendamentos ORDER BY data_agendamento DESC")
+        or die("Erro ao consultar agendamentos. " . mysqli_error($conexao));
+
+    if (mysqli_num_rows($sqlVisualizarAgendamentos) > 0) {
+        echo "<table class='table table-striped' border='1'>";
+        echo "<thead>
             <tr>
                 <th>Nome do Servidor</th>
                 <th>Tipo de Usuário</th>
@@ -31,29 +35,53 @@ if (mysqli_num_rows($sqlVisualizarAgendamentos) > 0) {
                 <th>Ações</th>
             </tr>
           </thead>";
-    echo "<tbody>";
-    while ($row = mysqli_fetch_assoc($sqlVisualizarAgendamentos)) { 
-        echo "<tr>";
-        echo "<td>" . htmlspecialchars($row['nome_servidor']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['tipo_de_usuario']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['email']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['tipo']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['data_agendamento']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['turno']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['horario']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['status']) . "</td>";
-        echo "<td>
+        echo "<tbody>";
+        while ($row = mysqli_fetch_assoc($sqlVisualizarAgendamentos)) {
+            $details = htmlspecialchars(json_encode([
+                'Nome do Servidor' => $row['nome_servidor'],
+                'Tipo de Usuário' => $row['tipo_de_usuario'],
+                'E-mail' => $row['email'],
+                'Tipo de Atendimento' => $row['tipo'],
+                'Data do Agendamento' => $row['data_agendamento'],
+                'Turno' => $row['turno'],
+                'Horário' => $row['horario'],
+                'Status' => $row['status']
+            ]), ENT_QUOTES, 'UTF-8');
+            echo "<tr>";
+            echo "<td>" . htmlspecialchars($row['nome_servidor']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['tipo_de_usuario']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['tipo']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['data_agendamento']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['turno']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['horario']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['status']) . "</td>";
+            echo "<td>
+                <button type='button' class='btn btn-info visualizar-btn' data-details='$details'>Visualizar</button>
                 <a href='editar_agendamento.php?id=" . $row['id'] . "' class='btn btn-primary'>Editar</a>
                 <a href='excluir_agendamento.php?id=" . $row['id'] . "' class='btn btn-danger' onclick=\"return confirm('Tem certeza que deseja excluir este agendamento?');\">Excluir</a>
               </td>";
-        echo "</tr>";
-    }   
-    echo "</tbody>";
-    echo "</table>";    
-} else {
-    echo "<p>Nenhum agendamento encontrado.</p>";
-}   
+            echo "</tr>";
+        }
+        echo "</tbody>";
+        echo "</table>";
+    } else {
+        echo "<p>Nenhum agendamento encontrado.</p>";
+    }
+    ?>
 
-echo "</body></html>";
-session_destroy();
-?>
+    <!-- Modal HTML -->
+    <div id="detalheModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" id="fecharModal">&times;</span>
+            <h3>Detalhes do Agendamento</h3>
+            <div id="modalDetalhes"></div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
+<?php session_destroy(); ?>
