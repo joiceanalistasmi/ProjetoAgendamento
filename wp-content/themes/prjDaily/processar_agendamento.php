@@ -1,10 +1,42 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require 'vendor/autoload.php';
 include("conexao.php");
 
-
-
 session_start();
+
+function enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $tipo, $data_agendamento, $horario)
+{
+    $mail = new PHPMailer(true);
+
+    try {
+        // Configurações do servidor
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'joice.smipm@gmail.com';
+        $mail->Password   = 'SmiPm2025@';
+        $mail->SMTPSecure = 'tls';
+        $mail->Port       = 587;
+
+        $mail->setFrom($mail->Username, 'Joice');
+        $mail->addAddress($email, $nome_servidor);
+
+        // Conteúdo
+        $mail->isHTML(true);
+        $mail->Subject = 'Notificação da Perícia médica - Prefeitura de São Miguel do Iguaçu';
+        $mail->Body    = '<strong>O Usuário agendou um exame de Perícia médica para a ' . $data_agendamento . ' no horário: ' . $horario . '</strong>';
+        $mail->AltBody = 'O Usuário agendou um exame de Perícia médica para a ' . $data_agendamento . ' no horário: ' . $horario;
+
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        return "Erro ao enviar e-mail: {$mail->ErrorInfo}";
+    }
+}
+
 if (
     isset($_POST['nome_servidor']) && isset($_POST['email']) && isset($_POST['tipo']) && isset($_POST['tipo_de_usuario']) &&
     isset($_POST['data_agendamento']) && isset($_POST['horario']) &&
@@ -31,7 +63,7 @@ if (
         $sqlconsultahoraDisponivel =
             mysqli_query(
                 $conexao,
-                " select * from agendamentos where horario = '$horario' and data_agendamento = '$data_agendamento' "
+                "SELECT * FROM agendamentos WHERE horario = '$horario' AND data_agendamento = '$data_agendamento'"
             ) or die("Erro ao consultar horários disponíveis. " . mysqli_error($conexao));
 
         if (mysqli_num_rows($sqlconsultahoraDisponivel) > 0) {
@@ -41,10 +73,16 @@ if (
             $sqlGravarAgenda = mysqli_query(
                 $conexao,
                 "INSERT INTO agendamentos (nome_servidor, tipo_de_usuario, email, tipo, data_agendamento, horario, turno, status)
-            VALUES ('$nome_servidor','$tipo_de_usuario','$email','$tipo','$data_agendamento', '$horario', '$turno', '$status')"
+                VALUES ('$nome_servidor','$tipo_de_usuario','$email','$tipo','$data_agendamento', '$horario', '$turno', '$status')"
             ) or die("Erro ao gravar o registro. " . mysqli_error($conexao));
-            echo "<script>alert('Registro gravado com sucesso!');</script>";
-            echo "<script>window.location.href = 'lista.php';</script>";
+
+            // Envia o e-mail
+            $resultadoEmail = enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $tipo, $data_agendamento, $horario);
+            if ($resultadoEmail === true) {
+                echo "<script>alert('Registro gravado e e-mail enviado com sucesso!'); window.location.href = 'lista.php';</script>";
+            } else {
+                echo "<script>alert('Registro gravado, mas houve erro ao enviar e-mail: $resultadoEmail'); window.location.href = 'lista.php';</script>";
+            }
             exit;
         }
     }
@@ -58,3 +96,10 @@ if (
 /*
 
 */
+
+//enviar a notitificação por e-mail
+include("notificacaoAgenda.php");
+$sqlnotificaUsuaruio = mysqli_query(
+    $conexao,
+    "INSERT INTO notificacoes (agendamento_id, tipo, data_envio) VALUES ('$id', '$tipo', NOW())"
+);
