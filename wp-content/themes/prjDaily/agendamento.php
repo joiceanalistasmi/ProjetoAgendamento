@@ -27,8 +27,8 @@
               <div class="mb-3">
                 <label for="tipo" class="form-label">Tipo de Usuário</label>
                 <select id="tipo" name="tipo_de_usuario" class="form-select" required>
-                  <option value="consulta">Servidor público</option>
-                  <option value="atestado">Acompanhante</option>
+                  <option value="servidorPublico">Servidor público</option>
+                  <option value="acompanhante">Acompanhante</option>
                 </select>
               </div>
 
@@ -85,8 +85,6 @@
   </div>
 
 <?php
-//enviar notificação para o servidor público 
-
 
 ?>
 

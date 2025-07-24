@@ -3,6 +3,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require 'vendor/autoload.php';
+
 include("conexao.php");
 
 session_start();
@@ -12,12 +13,13 @@ function enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $tipo, $dat
     $mail = new PHPMailer(true);
 
     try {
-        // Configurações do servidor
+        // conf do servidor 
+        //preciso verificar pois aqui esta o meu email 
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
         $mail->Username   = 'joice.smipm@gmail.com';
-        $mail->Password   = 'SmiPm2025@';
+        $mail->Password   = 'jvco myeg munj budd';// senha criada pelo google 
         $mail->SMTPSecure = 'tls';
         $mail->Port       = 587;
 
@@ -27,8 +29,11 @@ function enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $tipo, $dat
         // Conteúdo
         $mail->isHTML(true);
         $mail->Subject = 'Notificação da Perícia médica - Prefeitura de São Miguel do Iguaçu';
-        $mail->Body    = '<strong>O Usuário agendou um exame de Perícia médica para a ' . $data_agendamento . ' no horário: ' . $horario . '</strong>';
-        $mail->AltBody = 'O Usuário agendou um exame de Perícia médica para a ' . $data_agendamento . ' no horário: ' . $horario;
+        $mail->Body    = '<strong> O ' .$nome_servidor. ' agendou um exame de Perícia médica para a data: ' . $data_agendamento . ' as ' . $horario . '</strong>';
+        $mail->AltBody = ' O ' .$nome_servidor. ' agendou um exame de Perícia médica para a ' . $data_agendamento . ' as ' . $horario;
+        
+        $mail->SMTPDebug = 2; 
+        $mail->Debugoutput = 'html';
 
         $mail->send();
         return true;
@@ -79,9 +84,11 @@ if (
             // Envia o e-mail
             $resultadoEmail = enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $tipo, $data_agendamento, $horario);
             if ($resultadoEmail === true) {
-                echo "<script>alert('Registro gravado e e-mail enviado com sucesso!'); window.location.href = 'lista.php';</script>";
+                echo "<script>alert('Registro gravado e e-mail enviado com sucesso!'); window.location.href = 'https://saomiguel.pr.gov.br/';</script>";
             } else {
-                echo "<script>alert('Registro gravado, mas houve erro ao enviar e-mail: $resultadoEmail'); window.location.href = 'lista.php';</script>";
+                echo "<script>alert('Registro gravado, m
+                
+                '); window.location.href = 'agendamento.php';</script>";
             }
             exit;
         }
