@@ -58,7 +58,7 @@ session_start();
             echo "<td>" . htmlspecialchars($row['status']) . "</td>";
             echo "<td>
                 <button type='button' class='btn btn-info visualizar-btn' data-details='$details'>Visualizar</button>
-                <a href='editar_agendamento.php?id=" . $row['id'] . "' class='btn btn-primary'>Editar</a>
+                <a href='editarAgendamento.php?id=" . $row['id'] . "' class='btn btn-primary'>Editar</a>
                 <a href='excluirAgendamento.php?id=" . $row['id'] . "' class='btn btn-danger' onclick=\"return confirm('Tem certeza que deseja excluir este agendamento?');\">Excluir</a>
               </td>";
             echo "</tr>";
