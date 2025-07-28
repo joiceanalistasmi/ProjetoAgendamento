@@ -14,7 +14,12 @@ session_start();
 
 <body>
     <h2>Visualizar agendamentos de Perícia Médica - Segurança do Trabalho</h2>
+<br>
 
+<!--  botao de criar formulario de agendamento-->
+              <div class="mb-3">
+                <button type="button" class="btn btn-primary" onclick="window.location.href='agendamento.php'">NOVO AGENDAMENTO</button>
+              </div>
     <?php
     $sqlVisualizarAgendamentos =
         mysqli_query($conexao, "SELECT * FROM agendamentos ORDER BY data_agendamento DESC")

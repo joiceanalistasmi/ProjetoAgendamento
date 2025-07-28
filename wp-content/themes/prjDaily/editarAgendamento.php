@@ -15,29 +15,67 @@
             <div class="col-md-8 col-lg-6">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h2 class="card-title text-center mb-4">Agendamento para perícia médica - Segurança do trabalho</h2>
-                        <h2 class="card-title text-center mb-4">Edição de Agendamento</h2>
+                        <h2 class="card-title text-center mb-4"> Editar Agendamento para perícia médica - Segurança do trabalho</h2>
+                        <h2 class="card-title text-center mb-4">Editar Agendamento</h2>
 
                         <?php
                         include("conexao.php");
+                        require 'funcoesPhp.php';
 
-                        //editar o agendamento que vem da pagina viaualizaAgendamento.php
+                        // Processa atualização se enviado via POST
+                        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn-gravar'])) {
+                            $id = intval($_POST['id']);
+                            $nome_servidor = $_POST['nome_servidor'];
+                            $tipo_de_usuario = $_POST['tipo_de_usuario'];
+                            $email = $_POST['email'];
+                            $tipo = $_POST['tipo'];
+                            $data_agendamento = $_POST['data_agendamento'];
+                            $turno = $_POST['turno'];
+                            $horario = $_POST['horario'];
+                            $status = $_POST['status'];
+
+                            $sqlEditar = "UPDATE agendamentos SET 
+                                nome_servidor = '$nome_servidor',
+                                tipo_de_usuario = '$tipo_de_usuario',
+                                email = '$email',
+                                tipo = '$tipo',
+                                data_agendamento = '$data_agendamento',
+                                turno = '$turno',
+                                horario = '$horario',
+                                status = '$status' 
+                                WHERE id = $id";
+                                //envia notificação por e-mail
+                               $resultadoEmail = enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $tipo, $data_agendamento, $horario);
+                            if ($resultadoEmail !== true) {
+                                echo "<script>alert('Erro ao enviar e-mail: $resultadoEmail');</script>";
+                            }
+
+                            if (mysqli_query($conexao, $sqlEditar)) {
+                                echo "<script>alert('Agendamento atualizado com sucesso!'); window.location.href='visualizaAgendamentos.php';</script>";
+                                exit;
+                            } else {
+                                echo "<script>alert('Erro ao atualizar agendamento.'); window.history.back();</script>";
+                                exit;
+                            }
+                        }
+
+                        // Exibe o formulário de edição
                         if (isset($_GET['id'])) {
                             $id = intval($_GET['id']);
                             $sql = mysqli_query($conexao, "SELECT * FROM agendamentos WHERE id = $id");
                             if (mysqli_num_rows($sql) > 0) {
                                 $agendamento = mysqli_fetch_assoc($sql);
-                        ?>
-                                <form action="editarAgendamento.php" name="formAgenda" id="formAgenda"
-                                    method="POST" onsubmit="return validarCampos(document.formAgenda)" ;>
+                                ?>
+                                <form action="editarAgendamento.php?id=<?php echo $id; ?>" name="formAgenda" id="formAgenda"
+                                    method="POST">
                                     <input type="hidden" name="id" value="<?php echo $agendamento['id']; ?>">
                                     <div class="mb-3">
                                         <label for="nome_servidor" class="form-label">Nome do Servidor</label>
                                         <input type="text" class="form-control" id="nome_servidor" name="nome_servidor" value="<?php echo htmlspecialchars($agendamento['nome_servidor']); ?>" maxlength="100" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="tipo" class="form-label">Tipo de Usuário</label>
-                                        <select id="tipo" name="tipo_de_usuario" class="form-select" required>
+                                        <label for="tipo_de_usuario" class="form-label">Tipo de Usuário</label>
+                                        <select id="tipo_de_usuario" name="tipo_de_usuario" class="form-select" required>
                                             <option value="servidorPublico" <?php echo ($agendamento['tipo_de_usuario'] == 'servidorPublico') ? 'selected' : ''; ?>>Servidor público</option>
                                             <option value="acompanhante" <?php echo ($agendamento['tipo_de_usuario'] == 'acompanhante') ? 'selected' : ''; ?>>Acompanhante</option>
                                         </select>
@@ -60,7 +98,7 @@
                                     <div class="mb-3">
                                         <label for="turno" class="form-label">Turno</label>
                                         <select id="turno" name="turno" class="form-select" required>
-                                            <option value="">Selecione </option>
+                                            <option value="">Selecione</option>
                                             <option value="manhã" <?php echo ($agendamento['turno'] == 'manhã') ? 'selected' : ''; ?>>Manhã</option>
                                             <option value="tarde" <?php echo ($agendamento['turno'] == 'tarde') ? 'selected' : ''; ?>>Tarde</option>
                                         </select>
@@ -68,14 +106,17 @@
                                     <div class="mb-3">
                                         <label for="horario" class="form-label">Horário</label>
                                         <select id="horario" name="horario" class="form-select" required>
-                                            <option value="">Selecione o turno primeiro</option>
                                             <?php
                                             $horarios = [
                                                 'manhã' => ['07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00'],
                                                 'tarde' => ['13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30']
                                             ];
-                                            foreach ($horarios[$agendamento['turno']] as $hora) {
-                                                echo "<option value='$hora' " . (($agendamento['horario'] == $hora) ? 'selected' : '') . ">$hora</option>";
+                                            if (isset($agendamento['turno']) && isset($horarios[$agendamento['turno']])) {
+                                                foreach ($horarios[$agendamento['turno']] as $hora) {
+                                                    echo "<option value='$hora' " . (($agendamento['horario'] == $hora) ? 'selected' : '') . ">$hora</option>";
+                                                }
+                                            } else {
+                                                echo "<option value=''>Selecione o turno primeiro</option>";
                                             }
                                             ?>
                                         </select>
@@ -89,11 +130,11 @@
                                         </select>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                        <button type="submit" class="btn btn-primary">Atualizar</button>
-                                        <button type="reset" class="btn btn-secondary">Limpar</button>
+                                        <button type="submit" name="btn-gravar" class="btn btn-primary">Atualizar</button>
+                                        <button type="reset" name="btn-reset" class="btn btn-secondary">Limpar</button>
                                     </div>
                                 </form>
-                        <?
+                                <?php
                             } else {
                                 echo "<p>Agendamento não encontrado.</p>";
                                 exit;
@@ -102,52 +143,12 @@
                             echo "<p>ID do agendamento não especificado.</p>";
                             exit;
                         }
-
-                        $sqlEditarAgendamento = mysqli_query($conexao, " update agendamentos set 
-    nome_servidor = '" . $_POST['nome_servidor'] . "',
-    tipo_de_usuario = '" . $_POST['tipo_de_usuario'] . "',
-    email = '" . $_POST['email'] . "',
-    tipo = '" . $_POST['tipo'] . "',
-    data_agendamento = '" . $_POST['data_agendamento'] . "',
-    horario = '" . $_POST['horario'] . "',
-    turno = '" . $_POST['turno'] . "',
-    status = '" . $_POST['status'] . "
-    ' where id = " . $_GET['id']);
-
                         ?>
-
-
-                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-
-                        <script>
-                            const horariosPorTurno = {
-                                manhã: ['07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00'],
-                                tarde: ['13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30']
-                            };
-
-                            document.getElementById('turno').addEventListener('change', function() {
-                                const turno = this.value;
-                                const horarioSelect = document.getElementById('horario');
-
-                                // Limpa opções anteriores
-                                horarioSelect.innerHTML = '';
-
-                                if (turno && horariosPorTurno[turno]) {
-                                    horariosPorTurno[turno].forEach(hora => {
-                                        const option = document.createElement('option');
-                                        option.value = hora;
-                                        option.textContent = hora;
-                                        horarioSelect.appendChild(option);
-                                    });
-                                } else {
-                                    const option = document.createElement('option');
-                                    option.value = '';
-                                    option.textContent = '-- Selecione o turno primeiro --';
-                                    horarioSelect.appendChild(option);
-                                }
-                            });
-                        </script>
-
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
