@@ -14,27 +14,33 @@ session_start();
 
 <body>
     <h2>Visualizar agendamentos de Perícia Médica - Segurança do Trabalho</h2>
-<br>
+    <br>
 
-<!--  botao de criar formulario de agendamento-->
-              <div class="mb-3">
-                <button type="button" class="btn btn-primary" onclick="window.location.href='agendamento.php'">NOVO AGENDAMENTO</button>
-              </div> <br>
-                <div class="mb-3">
-                <label for="search_agendamento" class="form-label">Pesquisar Agendamentos:</label>
-                <input type="date" class="form-control" id="search_agendamento" name="search_agendamento" onkeyup="pesquisaAgendamentos()">
-              </div>
-              
+    <!--  botao de criar formulario de agendamento-->
+    0000<div class="mb-3">
+        <button type="button" class="btn btn-primary" onclick="window.location.href='agendamento.php'">NOVO AGENDAMENTO</button>
+    </div> <br>
+    <div class="mb-3">
+        <label for="search_agendamento" class="form-label">Pesquisar Agendamentos:</label>
+        <br>
+        <label for="search_agendamento" class="form-label">Data Inicio:</label>
+        <input type="date" class="form-control" id="dataInicio" name="dataInicio">
+
+        <label for="search_agendamento" class="form-label">Data Fim :</label>
+        <input type="date" class="form-control" id="dataFim" name="dataFim">
+        <button type="button" class="btn btn-primary" name="btn-search" id="btn-search">Consultar</button>
+    </div>
+
     <?php
 
     $searchData = isset($_POST['search_agendamento']) ? $_POST['search_agendamento'] : '';
     if ($searchData) {
         $sqlVisualizarAgendamentos = mysqli_query($conexao, "SELECT * FROM agendamentos WHERE data_agendamento = '$searchData' ORDER BY data_agendamento DESC")
             or die("Erro ao consultar agendamentos. " . mysqli_error($conexao));
-        
-            if (mysqli_num_rows($sqlVisualizarAgendamentos) > 0) {
-                echo "<table class='table table-striped' border='1'>";
-                echo "<thead>
+
+        if (mysqli_num_rows($sqlVisualizarAgendamentos) > 0) {
+            echo "<table class='table table-striped' border='1'>";
+            echo "<thead>
                     <tr>
                         <th>Nome do Servidor</th>
                         <th>Tipo de Usuário</th>
@@ -47,36 +53,36 @@ session_start();
                         <th>Ações</th>
                     </tr>
                 </thead>";
-                echo "<tbody>";
-                while ($row = mysqli_fetch_assoc($sqlVisualizarAgendamentos)) {
-                    $details = htmlspecialchars(json_encode([
-                        'Nome do Servidor' => $row['nome_servidor'],
-                        'Tipo de Usuário' => $row['tipo_de_usuario'],
-                        'E-mail' => $row['email'],
-                        'Tipo de Atendimento' => $row['tipo'],
-                        'Data do Agendamento' => $row['data_agendamento'],
-                        'Turno' => $row['turno'],
-                        'Horário' => $row['horario'],
-                        'Status' => $row['status']
-                    ]), ENT_QUOTES, 'UTF-8');
-                    echo "<tr>";
-                    echo "<td>" . htmlspecialchars($row['nome_servidor']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['tipo_de_usuario']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['email']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['tipo']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['data_agendamento']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['turno']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['horario']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['status']) . "</td>";
-                    echo "<td>
+            echo "<tbody>";
+            while ($row = mysqli_fetch_assoc($sqlVisualizarAgendamentos)) {
+                $details = htmlspecialchars(json_encode([
+                    'Nome do Servidor' => $row['nome_servidor'],
+                    'Tipo de Usuário' => $row['tipo_de_usuario'],
+                    'E-mail' => $row['email'],
+                    'Tipo de Atendimento' => $row['tipo'],
+                    'Data do Agendamento' => $row['data_agendamento'],
+                    'Turno' => $row['turno'],
+                    'Horário' => $row['horario'],
+                    'Status' => $row['status']
+                ]), ENT_QUOTES, 'UTF-8');
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($row['nome_servidor']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['tipo_de_usuario']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['tipo']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['data_agendamento']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['turno']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['horario']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['status']) . "</td>";
+                echo "<td>
                         <button type='button' class='btn btn-info visualizar-btn' data-details='$details'>Visualizar</button>
                         <a href='editarAgendamento.php?id=" . $row['id'] . "' class='btn btn-primary'>Editar</a>
                         <a href='excluirAgendamento.php?id=" . $row['id'] . "' class='btn btn-danger' onclick=\"return confirm('Tem certeza que deseja excluir este agendamento?');\">Excluir</a>
                     </td>";
-                    echo "</tr>";
-                }
-                echo "</tbody>";
-                echo "</table>";
+                echo "</tr>";
+            }
+            echo "</tbody>";
+            echo "</table>";
         } else {
             echo "<p>Nenhum agendamento encontrado.</p>";
         }
