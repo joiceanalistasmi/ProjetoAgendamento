@@ -5,62 +5,64 @@ date_default_timezone_set('America/Sao_Paulo');
 ?>
 <!DOCTYPE html>
 <html lang='pt-BR'>
-
 <head>
     <meta charset='UTF-8'>
     <title>Visualização de Agendamentos</title>
     <link rel='stylesheet' href='style.css'>
     <script src="funcao.js"></script>
 </head>
-
 <body>
+<header>
+    <img src="imagens/logo1.jpg" alt="Logo" class="logo">
+    <div>  <img src="imagens/prefeitura.jpg" alt="Prefeitura de São Miguel do Iguaçu" >
+    </div>
+</header>
+<section>
     <h2 class="">Visualizar agendamentos de Perícia Médica - Segurança do Trabalho</h2>
     <br>
     <!-- botoes de pesquisa -->
-   <form method="POST" action="" id="searchAgendamento">
-    <div class="mb-3">
-        <button type="button" class="btn btn-primary" onclick="window.location.href='agendamento.php'">NOVO AGENDAMENTO</button>
-    </div> <br>
-    <div class="mb-3">
-        <label for="search_agendamento" class="form-label">Pesquisar Agendamentos:</label>
-        <br>
-        <label for="search_agendamento" class="form-label">Data Inicio:</label>
-        <input type="date" class="form-control" id="dataInicio" name="dataInicio">
+    <form method="POST" action="" id="searchAgendamento">
+        <div class="mb-3">
+            <button type="button" class="btn btn-primary" onclick="window.location.href='agendamento.php'">NOVO AGENDAMENTO</button>
+        </div> <br>
+        <div class="mb-3">
+            <label for="search_agendamento" class="form-label">Pesquisar Agendamentos:</label>
+            <br>
+            <label for="search_agendamento" class="form-label">Data Inicio:</label>
+            <input type="date" class="form-control" id="dataInicio" name="dataInicio">
 
-        <label for="search_agendamento" class="form-label">Data Fim :</label>
-        <input type="date" class="form-control" id="dataFim" name="dataFim">
+            <label for="search_agendamento" class="form-label">Data Fim :</label>
+            <input type="date" class="form-control" id="dataFim" name="dataFim">
 
-        <button type="submit" class="btn btn-primary" name="btn-search" id="btn-search">Consultar</button>
-    </div>
-   </form>
-<?php
-// Verifica se o método de requisição é POST
+            <button type="submit" class="btn btn-primary" name="btn-search" id="btn-search">Consultar</button>
+        </div> <br>
+    </form>
+    <?php 
+    if (isset($_POST['btn-search']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
-if (isset($_POST['btn-search']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+        $dataInicio  = $_POST['dataInicio'];
+        $dataFim     = $_POST['dataFim'];
 
-    $dataInicio  = $_POST['dataInicio']; 
-    $dataFim     = $_POST['dataFim'];
-
-    // datas preenchidas com início <= fim
-    if (!empty($dataInicio) && !empty($dataFim)) {
-        if ($dataInicio <= $dataFim) {
-            $sqlVisualizarAgendamentos = mysqli_query($conexao, "SELECT * FROM agendamentos WHERE data_agendamento >= '$dataInicio' AND data_agendamento <= '$dataFim' 
+        // datas preenchidas com início <= fim
+        if (!empty($dataInicio) && !empty($dataFim)) {
+            if ($dataInicio <= $dataFim) {
+                $sqlVisualizarAgendamentos = mysqli_query($conexao, "SELECT * FROM agendamentos WHERE data_agendamento >= '$dataInicio' AND data_agendamento <= '$dataFim' 
                 ORDER BY data_agendamento DESC") or die("Erro ao consultar agendamentos. " . mysqli_error($conexao));
+            } else {
+                echo "<script>alert('A data de início não pode ser maior que a data de fim.');</script>";
+                $sqlVisualizarAgendamentos = false;
+            }
         } else {
-            echo "<script>alert('A data de início não pode ser maior que a data de fim.');</script>";
-            $sqlVisualizarAgendamentos = false;
+            // data atual
+            $hoje = new DateTime();
+            $hoje = $hoje->format('Y-m-d');
+            $sqlVisualizarAgendamentos = mysqli_query($conexao, "SELECT * FROM agendamentos  WHERE data_agendamento = '$hoje' ORDER BY data_agendamento DESC")
+                or die("Erro ao consultar agendamentos. " . mysqli_error($conexao));
         }
-    } else {
-        // data atual
-        $hoje = new DateTime();
-        $hoje = $hoje->format('Y-m-d');          
-        $sqlVisualizarAgendamentos = mysqli_query($conexao, "SELECT * FROM agendamentos  WHERE data_agendamento = '$hoje' ORDER BY data_agendamento DESC")
-            or die("Erro ao consultar agendamentos. " . mysqli_error($conexao));
-    }
 
-    if ($sqlVisualizarAgendamentos && mysqli_num_rows($sqlVisualizarAgendamentos) > 0) {
-        echo "<table class='table table-striped' border='1'>";
-        echo "<thead>
+        if ($sqlVisualizarAgendamentos && mysqli_num_rows($sqlVisualizarAgendamentos) > 0) {
+            echo "<table class='table table-striped' border='1'>";
+            echo "<thead>
                 <tr>
                     <th>Nome do Servidor</th>
                     <th>Tipo de Usuário</th>
@@ -73,42 +75,42 @@ if (isset($_POST['btn-search']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
                     <th>Ações</th>
                 </tr>
             </thead>";
-        echo "<tbody>";
-        while ($row = mysqli_fetch_assoc($sqlVisualizarAgendamentos)) {
-            $details = htmlspecialchars(json_encode([
-                'Nome do Servidor' => $row['nome_servidor'],
-                'Tipo de Usuário' => $row['tipo_de_usuario'],
-                'E-mail' => $row['email'],
-                'Tipo de Atendimento' => $row['tipo'],
-                'Data do Agendamento' => $row['data_agendamento'],
-                'Turno' => $row['turno'],
-                'Horário' => $row['horario'],
-                'Status' => $row['status']
-            ]), ENT_QUOTES, 'UTF-8');
-            echo "<tr>";
-            echo "<td>" . htmlspecialchars($row['nome_servidor']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['tipo_de_usuario']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['email']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['tipo']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['data_agendamento']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['turno']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['horario']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['status']) . "</td>";
-            echo "<td>
+            echo "<tbody>";
+            while ($row = mysqli_fetch_assoc($sqlVisualizarAgendamentos)) {
+                $details = htmlspecialchars(json_encode([
+                    'Nome do Servidor' => $row['nome_servidor'],
+                    'Tipo de Usuário' => $row['tipo_de_usuario'],
+                    'E-mail' => $row['email'],
+                    'Tipo de Atendimento' => $row['tipo'],
+                    'Data do Agendamento' => $row['data_agendamento'],
+                    'Turno' => $row['turno'],
+                    'Horário' => $row['horario'],
+                    'Status' => $row['status']
+                ]), ENT_QUOTES, 'UTF-8');
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($row['nome_servidor']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['tipo_de_usuario']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['tipo']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['data_agendamento']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['turno']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['horario']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['status']) . "</td>";
+                echo "<td>
                     <button type='button' class='btn btn-info visualizar-btn' data-details='$details'>Visualizar</button>
                     <a href='editarAgendamento.php?id=" . $row['id'] . "' class='btn btn-primary'>Editar</a>
                     <a href='excluirAgendamento.php?id=" . $row['id'] . "' class='btn btn-danger' onclick=\"return confirm('Tem certeza que deseja excluir este agendamento?');\">Excluir</a>
                 </td>";
-            echo "</tr>";
+                echo "</tr>";
+            }
+
+            echo "</tbody>";
+            echo "</table>";
+        } elseif ($sqlVisualizarAgendamentos) {
+            echo "<p>Nenhum agendamento encontrado.</p>";
         }
-   
-        echo "</tbody>";
-        echo "</table>";
-    } elseif ($sqlVisualizarAgendamentos) {
-        echo "<p>Nenhum agendamento encontrado.</p>";
     }
-}
-?>
+    ?>
 
     <!-- Modal HTML -->
     <div id="detalheModal" class="modal" style="display:none;">
@@ -118,7 +120,10 @@ if (isset($_POST['btn-search']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
             <div id="modalDetalhes"></div>
         </div>
     </div>
-
+</section>
+<footer>
+    <p>&copy; <?php echo date("Y"); ?> Prefeitura de São Miguel do Iguaçu - Todos os direitos reservados.</p>
+</footer>
 </body>
 
 </html>
