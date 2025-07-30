@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Agendamento de Exame Ocupacional</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <header>
     <img src="imagens/logo1.jpg" alt="Logo" class="logo">
-    <div>  <img src="imagens/prefeitura.jpg" alt="Prefeitura de São Miguel do Iguaçu" >
+    <div> <img src="imagens/prefeitura.jpg" alt="Prefeitura de São Miguel do Iguaçu">
     </div>
-</header>
-  <div class="container">
+  </header>
+  <div>
     <h2>Agendamento para perícia médica - Segurança do trabalho</h2>
     <h2>Formulário de Agendamento</h2>
-
-    <form action="processar_agendamento.php" name="formAgenda" id="formAgenda" method="POST" onsubmit="return validarCampos(document.formAgenda);">
+</div>
+    <form class="cadastro" action="processar_agendamento.php" name="formAgenda" id="formAgenda" method="POST" onsubmit="return validarCampos(document.formAgenda);">
       <div>
         <label for="nome_servidor">Nome do Servidor</label>
         <input type="text" id="nome_servidor" name="nome_servidor" maxlength="100" required />
@@ -78,11 +80,9 @@
         <button type="reset">Limpar</button>
       </div>
     </form>
-  </div>
-
-  <footer>
+<footer>
     <p>&copy; Prefeitura de São Miguel do Iguaçu - Todos os direitos reservados.</p>
-  </footer>
+</footer>
 
   <script>
     const horariosPorTurno = {
@@ -90,7 +90,7 @@
       tarde: ['13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30']
     };
 
-    document.getElementById('turno').addEventListener('change', function () {
+    document.getElementById('turno').addEventListener('change', function() {
       const turno = this.value;
       const horarioSelect = document.getElementById('horario');
 
@@ -113,4 +113,5 @@
     });
   </script>
 </body>
+
 </html>
