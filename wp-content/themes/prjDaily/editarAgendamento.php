@@ -4,20 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Agendamento de Exame Ocupacional</title>
-    <linl rel="stylesheet" href="style.css">
+    <title>AAgendamento para perícia médica - Segurança do trabalho</title>
+    <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <script src="funcao.js"></script>
 </head>
 
 <body class="bg-light py-5">
+    <header>
+        <img src="imagens/logo1.jpg" alt="Logo">
+        <div>
+            <img src="imagens/prefeitura.jpg" alt="Prefeitura de São Miguel do Iguaçu">
+        </div>
+    </header>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h2 class="card-title text-center mb-4"> Editar Agendamento para perícia médica - Segurança do trabalho</h2>
-                        <h2 class="card-title text-center mb-4">Editar Agendamento</h2>
+                        <h2 class="card-title text-center mb-4"> <i>Editar</i>:
+                            Agendamento para perícia médica - Segurança do trabalho</h2>
 
                         <?php
                         include("conexao.php");
@@ -45,8 +51,8 @@
                                 horario = '$horario',
                                 status = '$status' 
                                 WHERE id = $id";
-                                //envia notificação por e-mail
-                               $resultadoEmail = enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $tipo, $data_agendamento, $horario);
+                            //envia notificação por e-mail
+                            $resultadoEmail = enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $tipo, $data_agendamento, $horario);
                             if ($resultadoEmail !== true) {
                                 echo "<script>alert('Erro ao enviar e-mail: $resultadoEmail');</script>";
                             }
@@ -66,9 +72,8 @@
                             $sql = mysqli_query($conexao, "SELECT * FROM agendamentos WHERE id = $id");
                             if (mysqli_num_rows($sql) > 0) {
                                 $agendamento = mysqli_fetch_assoc($sql);
-                                ?>
-                                <form action="editarAgendamento.php?id=<?php echo $id; ?>" name="formAgenda" id="formAgenda"
-                                    method="POST">
+                        ?>
+                                <form class="cadastro" action="editarAgendamento.php?id=<?php echo $id; ?>" name="formAgenda" id="formAgenda" method="POST">
                                     <input type="hidden" name="id" value="<?php echo $agendamento['id']; ?>">
                                     <div class="mb-3">
                                         <label for="nome_servidor" class="form-label">Nome do Servidor</label>
@@ -135,7 +140,7 @@
                                         <button type="reset" name="btn-reset" class="btn btn-secondary">Limpar</button>
                                     </div>
                                 </form>
-                                <?php
+                        <?php
                             } else {
                                 echo "<p>Agendamento não encontrado.</p>";
                                 exit;
@@ -150,6 +155,9 @@
             </div>
         </div>
     </div>
+    <footer>
+        <p>&copy; Prefeitura de São Miguel do Iguaçu - Todos os direitos reservados.</p>
+    </footer>
 </body>
 
 </html>

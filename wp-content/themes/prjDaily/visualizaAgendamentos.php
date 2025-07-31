@@ -28,13 +28,12 @@ date_default_timezone_set('America/Sao_Paulo');
         <div class="mb-3">
             <label for="search_agendamento" class="form-label">Pesquisar Agendamentos:</label>
             <br>
-            <label for="search_agendamento" class="form-label">Data Inicio:</label>
-            <input type="date" class="form-control" id="dataInicio" name="dataInicio">
-
-            <label for="search_agendamento" class="form-label">Data Fim :</label>
-            <input type="date" class="form-control" id="dataFim" name="dataFim">
-
-            <button type="submit" class="btn btn-primary" name="btn-search" id="btn-search">Consultar</button>
+            <label for="search_agendamento" class="form-label">Data(Inicial e Final)</label>
+            <input type="date" class="form-control" id="dataInicio" name="dataInicio" style=" width: 20%;" >
+            <span>até</span>
+            <input type="date" class="form-control" id="dataFim" name="dataFim" style=" width: 20%;" >
+          
+            <button type="submit" class="btn btn-primary" name="btn-search" id="btn-search">CONSULTAR</button>
         </div> <br>
     </form>
     <?php 
