@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Agendamento para perícia médica</title>
   <link rel="stylesheet" href="style.css" />
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>F
+  <script src="funcao.js"></script>
 </head>
 
 <body>
@@ -20,7 +24,7 @@
     <h2>Formulário de Agendamento - Agendamento para perícia médica - Segurança do trabalho</h2>
   </div>
 
-  <section>
+  <section> 
     <form class="cadastro" action="processar_agendamento.php" name="formAgenda" id="formAgenda" method="POST"
       onsubmit="return validarCampos(document.formAgenda);">
       <div>
@@ -43,9 +47,11 @@
 
       <div>
         <label for="telefone">Telefone</label>
-        <input type="text" id="telefone" name="telefone" maxlength="100" placeholder="(xx)xxxxxxxxx" required />
+        <input type="text" id="telefone" name="telefone" maxlength="100" placeholder="(xx)xxxxx-xxxx" required />
       </div>
-
+      <script>
+       
+      </script>
       <div>
         <label for="email">E-mail</label>
         <input type="email" id="email" name="email" maxlength="100" />
@@ -126,6 +132,8 @@
           option.value = hora;
           option.textContent = hora;
           horarioSelect.appendChild(option);
+          horario = hora;
+          console.log("Horário selecionado: " + horario);
         });
       } else {
         const option = document.createElement('option');
@@ -134,6 +142,7 @@
         horarioSelect.appendChild(option);
       }
     });
+
   </script>
 
 </body>
