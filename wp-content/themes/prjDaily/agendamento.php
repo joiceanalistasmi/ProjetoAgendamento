@@ -11,15 +11,18 @@
 <body>
   <header>
     <img src="imagens/logo1.jpg" alt="Logo" class="logo">
-    <div> <img src="imagens/prefeitura.jpg" alt="Prefeitura de São Miguel do Iguaçu">
+    <div>
+      <img src="imagens/prefeitura.jpg" alt="Prefeitura de São Miguel do Iguaçu">
     </div>
   </header>
+
   <div>
     <h2>Formulário de Agendamento - Agendamento para perícia médica - Segurança do trabalho</h2>
-
   </div>
+
   <section>
-    <form class="cadastro" action="processar_agendamento.php" name="formAgenda" id="formAgenda" method="POST" onsubmit="return validarCampos(document.formAgenda);">
+    <form class="cadastro" action="processar_agendamento.php" name="formAgenda" id="formAgenda" method="POST"
+      onsubmit="return validarCampos(document.formAgenda);">
       <div>
         <label for="nome_servidor">Nome do Servidor</label>
         <input type="text" id="nome_servidor" name="nome_servidor" maxlength="100" required />
@@ -32,14 +35,17 @@
           <option value="acompanhante">Acompanhante</option>
         </select>
       </div>
+
       <div>
-        <label for="nome_acompanhante ">Nome do Acompanhante (se houver*)</label>
+        <label for="nome_acompanhante">Nome do Acompanhante (se houver*)</label>
         <input type="text" id="nome_acompanhante" name="nome_acompanhante" maxlength="100" />
       </div>
+
       <div>
         <label for="telefone">Telefone</label>
         <input type="text" id="telefone" name="telefone" maxlength="100" placeholder="(xx)xxxxxxxxx" required />
       </div>
+
       <div>
         <label for="email">E-mail</label>
         <input type="email" id="email" name="email" maxlength="100" />
@@ -57,19 +63,14 @@
         <label for="data_agendamento">Data do Agendamento</label>
         <input type="date" id="data_agendamento" name="data_agendamento" required />
       </div>
-      
-        
+
       <div>
         <label for="horario">Horário</label>
         <select id="horario" name="horario" required>
-          <script>
-          while (horarioSelect.options.length > 0) {
-          
-            document.writeln("<option value='horario'>horarioSelect.value</option>");
-          }
-          </script>
+          <option value="">Selecione uma data primeiro</option>
         </select>
       </div>
+
       <div>
         <label for="status">Status</label>
         <select id="status" name="status" required>
@@ -85,66 +86,54 @@
       </div>
     </form>
   </section>
+
   <footer>
     <p>&copy; Prefeitura de São Miguel do Iguaçu - Todos os direitos reservados.</p>
   </footer>
 
+
   <script>
-     const diaDaSemana = document.getElementById('data_agendamento');
+    const dataInput = document.getElementById('data_agendamento');
+    const horarioSelect = document.getElementById('horario');
 
-     if (diaDaSemana) {
-         diaDaSemana.addEventListener('change', function () {
-             const dataSelecionada = new Date(this.value);
-             const dia = dataSelecionada.getDay();
-             const horarioSelect = document.getElementById('horario');
+    const horariosPorDia = { /* aqui refere-se aos dias da semana */ 
+      0: ['Domingo'],
+      1: ["07:30", "07:40", "07:50", "08:00", "08:10", "08:20", "08:30", "08:40", "08:50", "09:00", "09:10", "09:20", "09:30", "09:40", "09:50", "10:00", "10:10", "10:20", "10:30", "10:40", "10:50", "11:00", "11:10", "11:20"], // Segunda
+      2: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"], // Terça
+      3: ["07:30", "07:40", "07:50", "08:00", "08:10", "08:20", "08:30", "08:40", "08:50", "09:00", "09:10", "09:20", "09:30", "09:40", "09:50", "10:00", "10:10", "10:20", "10:30", "10:40", "10:50", "11:00", "11:10", "11:20"], // Quarta
+      4: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"], // Quinta
+      5: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"] ,
+      6: ['Sábado'] 
+    };
 
-         
-             horarioSelect.innerHTML = '';
-             
-             if (dia === 1) {  
-                 horarioSelect.innerHTML = '<option value="07:30">07:30</option><option value="07:40">07:40</option><option value="07:50">07:50</option>'
-                 '<option value="08:00">08:00</option><option value="08:10">08:10</option><option value="08:20">08:20</option><option value="08:30">08:30</option>'
-                 '<option value="08:40">08:40</option><option value="08:50">08:50</option><option value="09:00">09:00</option><option value="09:10">09:10</option>'
-                 '<option value="09:20">09:20</option><option value="09:30">09:30</option><option value="09:40">09:40</option><option value="09:50">09:50</option>'
-                 '<option value="10:00">10:00</option><option value="10:10">10:10</option><option value="10:20">10:20</option><option value="10:30">10:30</option>'
-                 '<option value="10:40">10:40</option><option value="10:50">10:50</option><option value="11:00">11:00</option><option value="11:10">11:10</option>'
-                 '<option value="11:20">11:20</option>';
-             }else if (dia === 2) {  
-                 horarioSelect.innerHTML = '<option value="13:10">13:10</option><option value="13:20">13:20</option><option value="13:40">13:40</option>'
-                 '<option value="13:50">13:50</option><option value="14:00">14:00</option><option value="14:10">14:10</option><option value="14:20">14:20</option>'
-                 '<option value="14:30">14:30</option><option value="14:40">14:40</option><option value="14:50">14:50</option><option value="15:00">15:00</option><option value="15:10">15:10</option>'
-                 '<option value="15:20">15:20</option><option value="15:30">15:30</option><option value="15:40">15:40</option><option value="15:50">15:50</option>'
-                 '<option value="16:00">16:00</option><option value="16:10">16:10</option><option value="16:20">16:20</option><option value="16:30">16:30</option>'
-                 '<option value="16:40">16:40</option><option value="16:50">16:50</option>';
-             } else if (dia === 3) {
-                  horarioSelect.innerHTML = '<option value="07:30">07:30</option><option value="07:40">07:40</option><option value="07:50">07:50</option>'
-                 '<option value="08:00">08:00</option><option value="08:10">08:10</option><option value="08:20">08:20</option><option value="08:30">08:30</option>'
-                 '<option value="08:40">08:40</option><option value="08:50">08:50</option><option value="09:00">09:00</option><option value="09:10">09:10</option>'
-                 '<option value="09:20">09:20</option><option value="09:30">09:30</option><option value="09:40">09:40</option><option value="09:50">09:50</option>'
-                 '<option value="10:00">10:00</option><option value="10:10">10:10</option><option value="10:20">10:20</option><option value="10:30">10:30</option>'
-                 '<option value="10:40">10:40</option><option value="10:50">10:50</option><option value="11:00">11:00</option><option value="11:10">11:10</option>'
-                 '<option value="11:20">11:20</option>';
-             } else if (dia === 4) {
-                 horarioSelect.innerHTML = '<option value="13:10">13:10</option><option value="13:20">13:20</option><option value="13:40">13:40</option>'
-                 '<option value="13:50">13:50</option><option value="14:00">14:00</option><option value="14:10">14:10</option><option value="14:20">14:20</option>'
-                 '<option value="14:30">14:30</option><option value="14:40">14:40</option><option value="14:50">14:50</option><option value="15:00">15:00</option><option value="15:10">15:10</option>'
-                 '<option value="15:20">15:20</option><option value="15:30">15:30</option><option value="15:40">15:40</option><option value="15:50">15:50</option>'
-                 '<option value="16:00">16:00</option><option value="16:10">16:10</option><option value="16:20">16:20</option><option value="16:30">16:30</option>'
-                 '<option value="16:40">16:40</option><option value="16:50">16:50</option>';
-             } else if (dia === 5) {
-                 horarioSelect.innerHTML = '<option value="13:10">13:10</option><option value="13:20">13:20</option><option value="13:40">13:40</option>'
-                 '<option value="13:50">13:50</option><option value="14:00">14:00</option><option value="14:10">14:10</option><option value="14:20">14:20</option>'
-                 '<option value="14:30">14:30</option><option value="14:40">14:40</option><option value="14:50">14:50</option><option value="15:00">15:00</option><option value="15:10">15:10</option>'
-                 '<option value="15:20">15:20</option><option value="15:30">15:30</option><option value="15:40">15:40</option><option value="15:50">15:50</option>'
-                 '<option value="16:00">16:00</option><option value="16:10">16:10</option><option value="16:20">16:20</option><option value="16:30">16:30</option>'
-                 '<option value="16:40">16:40</option><option value="16:50">16:50</option>';
+    dataInput.addEventListener('change', function () {
+      const [ano, mes, dia] = this.value.split('-').map(Number);
+      const dataSelecionada = new Date(ano, mes - 1, dia);
+      console.log(dataSelecionada);
+      const diaSemana = dataSelecionada.getDay();  
+      console.log(diaSemana);
+    //  const diaSemana = diaSemana[dataSelecionada.getDay()]; 
+     // const hoje = new Date();
+     //const diasDaSemana = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"];
+ // const diaDaSemana = diasDaSemana[hoje.getDay()];
 
-             }else{
-                  horarioSelect.innerHTML = '<option value="">Dia Inválido</option>';
-             }
-         });
-     }
+    
+      horarioSelect.innerHTML = ''; //limpa campo
 
+      if (horariosPorDia[diaSemana]) {
+        horariosPorDia[diaSemana].forEach(hora => {
+          const option = document.createElement('option');
+          option.value = hora;
+          option.textContent = hora;
+          horarioSelect.appendChild(option);
+        });
+      } else {
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = 'Sem horários disponíveis para este dia';
+        horarioSelect.appendChild(option);
+      }
+    });
   </script>
 
 </body>

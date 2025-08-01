@@ -9,22 +9,24 @@ include("conexao.php");
 session_start();
 
 if (
-    isset($_POST['nome_servidor']) && isset($_POST['email']) && isset($_POST['tipo']) && isset($_POST['tipo_de_usuario']) &&
+    isset($_POST['nome_servidor']) && isset($_POST['telefone']) && isset($_POST['tipo']) && isset($_POST['tipo_de_usuario']) &&
     isset($_POST['data_agendamento']) && isset($_POST['horario']) &&
     isset($_POST['turno']) && isset($_POST['status'])
 ) {
 
     $nome_servidor = $_POST["nome_servidor"];
     $tipo_de_usuario = $_POST["tipo_de_usuario"];
+    $nome_acompanhante = $_POST["nome_acompanhante"];
     $email = $_POST["email"];
     $tipo = $_POST["tipo"];
+    $telefone = $_POST["telefone"];
     $data_agendamento = $_POST["data_agendamento"];
     $horario = $_POST["horario"];
     $turno = $_POST["turno"];
     $status = $_POST["status"];
 
     if (
-        empty($nome_servidor) || empty($tipo_de_usuario) || empty($email) || empty($tipo) ||
+        empty($nome_servidor) || empty($tipo_de_usuario) || empty($telefone) || empty($tipo) ||
         empty($data_agendamento) || empty($horario) ||
         empty($turno) || empty($status)
     ) {
@@ -43,8 +45,8 @@ if (
         } else {
             $sqlGravarAgenda = mysqli_query(
                 $conexao,
-                "INSERT INTO agendamentos (nome_servidor, tipo_de_usuario, email, tipo, data_agendamento, horario, turno, status)
-                VALUES ('$nome_servidor','$tipo_de_usuario','$email','$tipo','$data_agendamento', '$horario', '$turno', '$status')"
+                "INSERT INTO agendamentos (nome_servidor, tipo_de_usuario, nome_acompanhante, telefone, email, tipo, data_agendamento, horario, turno, status)
+                VALUES ('$nome_servidor','$tipo_de_usuario','$nome_acompanhante', '$telefone', '$email','$tipo','$data_agendamento', '$horario', '$turno', '$status')"
             ) or die("Erro ao gravar o registro. " . mysqli_error($conexao));
 
             // Envia o e-mail
