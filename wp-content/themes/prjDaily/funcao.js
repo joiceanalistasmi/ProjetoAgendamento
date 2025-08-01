@@ -12,7 +12,7 @@ function validarCampos(formAgenda){
           $('#telefone').mask('(00) 0000-0000');
 });
 
-
+/*
 // funcao para o modal 
 window.onload = function(){
 document.querySelectorAll('.visualizar-btn').forEach(function(btn) {
@@ -37,4 +37,4 @@ window.onclick = function(event) {
         modal.style.display = 'none';
     }
 };
-};
+};*/

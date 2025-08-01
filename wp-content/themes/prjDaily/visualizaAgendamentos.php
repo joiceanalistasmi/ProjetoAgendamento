@@ -126,4 +126,32 @@ date_default_timezone_set('America/Sao_Paulo');
 </body>
 
 </html>
+<script>
+// funcao para o modal 
+window.onload = function(){
+document.querySelectorAll('.visualizar-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var details = JSON.parse(this.getAttribute('data-details'));
+        var html = '';
+        for (var key in details) {
+            html += '<p><strong>' + key + ':</strong> ' + details[key] + '</p>';
+        }
+        document.getElementById('modalDetalhes').innerHTML = html;
+        document.getElementById('detalheModal').style.display = 'block';
+    });
+});
+
+document.getElementById('fecharModal').onclick = function() {
+    document.getElementById('detalheModal').style.display = 'none';
+};
+
+window.onclick = function(event) {
+    var modal = document.getElementById('detalheModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+};
+};
+</script>
+
 <?php session_destroy(); ?>

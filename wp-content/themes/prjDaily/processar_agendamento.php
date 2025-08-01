@@ -9,9 +9,7 @@ include("conexao.php");
 session_start();
 
 if (
-    isset($_POST['nome_servidor']) && isset($_POST['telefone']) && isset($_POST['tipo']) && isset($_POST['tipo_de_usuario']) &&
-    isset($_POST['data_agendamento']) && isset($_POST['horario']) &&
-    isset($_POST['turno']) && isset($_POST['status'])
+    isset($_POST['nome_servidor']) && isset($_POST['telefone']) && isset($_POST['tipo']) && isset($_POST['tipo_de_usuario']) && isset($_POST['status'])
 ) {
 
     $nome_servidor = $_POST["nome_servidor"];
@@ -21,8 +19,7 @@ if (
     $tipo = $_POST["tipo"];
     $telefone = $_POST["telefone"];
     $data_agendamento = $_POST["data_agendamento"];
-    $horario = $_POST["horario"];
-    $turno = $_POST["turno"];
+    $horario = $_POST["horario"]; 
     $status = $_POST["status"];
 
     if (
