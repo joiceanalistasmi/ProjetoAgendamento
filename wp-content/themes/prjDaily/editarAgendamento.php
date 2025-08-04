@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AAgendamento para perícia médica - Segurança do trabalho</title>
+    <title>Agendamento para perícia médica - Segurança do trabalho</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <script src="funcao.js"></script>
@@ -37,7 +37,6 @@
                             $email = $_POST['email'];
                             $tipo = $_POST['tipo'];
                             $data_agendamento = $_POST['data_agendamento'];
-                            $turno = $_POST['turno'];
                             $horario = $_POST['horario'];
                             $status = $_POST['status'];
 
@@ -46,8 +45,7 @@
                                 tipo_de_usuario = '$tipo_de_usuario',
                                 email = '$email',
                                 tipo = '$tipo',
-                                data_agendamento = '$data_agendamento',
-                                turno = '$turno',
+                                data_agendamento = '$data_agendamento', 
                                 horario = '$horario',
                                 status = '$status' 
                                 WHERE id = $id";
@@ -99,33 +97,17 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="data_agendamento" class="form-label">Data do Agendamento</label>
-                                        <input type="date" class="form-control" id="data_agendamento" name="data_agendamento" value="<?php echo htmlspecialchars($agendamento['data_agendamento']); ?>" required>
+                                        <input type="date" class="form-control" id="data_agendamento" name="data_agendamento"
+                                            value="<?php echo htmlspecialchars($agendamento['data_agendamento']);  ?>" required>
+
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="turno" class="form-label">Turno</label>
-                                        <select id="turno" name="turno" class="form-select" required>
-                                            <option value="">Selecione</option>
-                                            <option value="manhã" <?php echo ($agendamento['turno'] == 'manhã') ? 'selected' : ''; ?>>Manhã</option>
-                                            <option value="tarde" <?php echo ($agendamento['turno'] == 'tarde') ? 'selected' : ''; ?>>Tarde</option>
-                                        </select>
-                                    </div>
+
                                     <div class="mb-3">
                                         <label for="horario" class="form-label">Horário</label>
-                                        <select id="horario" name="horario" class="form-select" required>
-                                            <?php
-                                            $horarios = [
-                                                'manhã' => ['07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00'],
-                                                'tarde' => ['13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30']
-                                            ];
-                                            if (isset($agendamento['turno']) && isset($horarios[$agendamento['turno']])) {
-                                                foreach ($horarios[$agendamento['turno']] as $hora) {
-                                                    echo "<option value='$hora' " . (($agendamento['horario'] == $hora) ? 'selected' : '') . ">$hora</option>";
-                                                }
-                                            } else {
-                                                echo "<option value=''>Selecione o turno primeiro</option>";
-                                            }
-                                            ?>
-                                        </select>
+                                        <input type="time" class="form-control" id="horario" name="horario"
+                                            value="<?php echo htmlspecialchars($agendamento['horario']); ?>" required>
+
+
                                     </div>
                                     <div class="mb-4">
                                         <label for="status" class="form-label">Status</label>
@@ -158,6 +140,48 @@
     <footer>
         <p>&copy; Prefeitura de São Miguel do Iguaçu - Todos os direitos reservados.</p>
     </footer>
+
+<script>
+    const dataInput = document.getElementById('data_agendamento');
+    const horarioSelect = document.getElementById('horario');
+
+    const horariosPorDia = { /* aqui refere-se aos dias da semana */ 
+      0: ['Domingo'],
+      1: ["07:30", "07:40", "07:50", "08:00", "08:10", "08:20", "08:30", "08:40", "08:50", "09:00", "09:10", "09:20", "09:30", "09:40", "09:50", "10:00", "10:10", "10:20", "10:30", "10:40", "10:50", "11:00", "11:10", "11:20"], // Segunda
+      2: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"], // Terça
+      3: ["07:30", "07:40", "07:50", "08:00", "08:10", "08:20", "08:30", "08:40", "08:50", "09:00", "09:10", "09:20", "09:30", "09:40", "09:50", "10:00", "10:10", "10:20", "10:30", "10:40", "10:50", "11:00", "11:10", "11:20"], // Quarta
+      4: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"], // Quinta
+      5: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"] ,
+      6: ['Sábado'] 
+    };
+
+    dataInput.addEventListener('change', function () {
+      const [ano, mes, dia] = this.value.split('-').map(Number);
+      const dataSelecionada = new Date(ano, mes - 1, dia);
+      console.log(dataSelecionada);
+      const diaSemana = dataSelecionada.getDay();  
+    
+      horarioSelect.innerHTML = ''; //limpa campo
+
+      if (horariosPorDia[diaSemana]) {
+        horariosPorDia[diaSemana].forEach(hora => {
+          const option = document.createElement('option');
+          option.value = hora;
+          option.textContent = hora;
+          horarioSelect.appendChild(option);
+          horario = hora;
+          console.log("Horário selecionado: " + horario);
+        });
+      } else {
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = 'Sem horários disponíveis para este dia';
+        horarioSelect.appendChild(option);
+      }
+    });
+
+  </script>
+
 </body>
 
 </html>

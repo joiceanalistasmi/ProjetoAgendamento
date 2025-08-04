@@ -68,7 +68,6 @@ date_default_timezone_set('America/Sao_Paulo');
                     <th>E-mail</th>
                     <th>Tipo de Atendimento</th>
                     <th>Data do Agendamento</th>
-                    <th>Turno</th>
                     <th>Horário</th>
                     <th>Status</th>
                     <th>Ações</th>
@@ -82,7 +81,6 @@ date_default_timezone_set('America/Sao_Paulo');
                     'E-mail' => $row['email'],
                     'Tipo de Atendimento' => $row['tipo'],
                     'Data do Agendamento' => $row['data_agendamento'],
-                    'Turno' => $row['turno'],
                     'Horário' => $row['horario'],
                     'Status' => $row['status']
                 ]), ENT_QUOTES, 'UTF-8');
@@ -92,7 +90,6 @@ date_default_timezone_set('America/Sao_Paulo');
                 echo "<td>" . htmlspecialchars($row['email']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['tipo']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['data_agendamento']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['turno']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['horario']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['status']) . "</td>";
                 echo "<td>

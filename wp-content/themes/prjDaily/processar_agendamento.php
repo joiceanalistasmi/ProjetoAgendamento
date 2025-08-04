@@ -9,14 +9,14 @@ include("conexao.php");
 session_start();
 
 if (
-    isset($_POST['nome_servidor']) && isset($_POST['telefone']) && isset($_POST['tipo']) && isset($_POST['tipo_de_usuario']) && isset($_POST['status'])
+    isset($_POST['nome_servidor']) && isset($_POST['telefone']) && isset($_POST['tipo']) && isset($_POST['tipo_de_usuario'])
 ) {
 
     $nome_servidor = $_POST["nome_servidor"];
     $tipo_de_usuario = $_POST["tipo_de_usuario"];
     $nome_acompanhante = $_POST["nome_acompanhante"];
     $email = $_POST["email"];
-    $tipo = $_POST["tipo"];
+    $tipo = $_POST["tipo"]; //se é consulta ou atestado
     $telefone = $_POST["telefone"];
     $data_agendamento = $_POST["data_agendamento"];
     $horario = $_POST["horario"]; 
@@ -24,8 +24,7 @@ if (
 
     if (
         empty($nome_servidor) || empty($tipo_de_usuario) || empty($telefone) || empty($tipo) ||
-        empty($data_agendamento) || empty($horario) ||
-        empty($turno) || empty($status)
+        empty($data_agendamento) || empty($horario) 
     ) {
         echo "<script>alert('Por favor, preencha todos os campos.'); window.history.back();</script>";
         exit;
@@ -42,8 +41,8 @@ if (
         } else {
             $sqlGravarAgenda = mysqli_query(
                 $conexao,
-                "INSERT INTO agendamentos (nome_servidor, tipo_de_usuario, nome_acompanhante, telefone, email, tipo, data_agendamento, horario, turno, status)
-                VALUES ('$nome_servidor','$tipo_de_usuario','$nome_acompanhante', '$telefone', '$email','$tipo','$data_agendamento', '$horario', '$turno', '$status')"
+                "INSERT INTO agendamentos (nome_servidor, tipo_de_usuario, nome_acompanhante, telefone, email, tipo, data_agendamento, horario, status)
+                VALUES ('$nome_servidor','$tipo_de_usuario','$nome_acompanhante', '$telefone', '$email','$tipo','$data_agendamento', '$horario', '$status')"
             ) or die("Erro ao gravar o registro. " . mysqli_error($conexao));
 
             // Envia o e-mail
@@ -51,9 +50,7 @@ if (
             if ($resultadoEmail === true) {
                 echo "<script>alert('Registro gravado e e-mail enviado com sucesso!'); window.location.href = 'https://saomiguel.pr.gov.br/';</script>";
             } else {
-                echo "<script>alert('Registro gravado, m
-                
-                '); window.location.href = 'agendamento.php';</script>";
+                echo "<script>alert('Registro gravado, mas houve erro ao enviar o email'); window.location.href = 'agendamento.php';</script>";
             }
             exit;
         }

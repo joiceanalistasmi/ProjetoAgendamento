@@ -28,12 +28,12 @@
     <form class="cadastro" action="processar_agendamento.php" name="formAgenda" id="formAgenda" method="POST"
       onsubmit="return validarCampos(document.formAgenda);">
       <div>
-        <label for="nome_servidor">Nome do Servidor</label>
+        <label for="nome_servidor">Nome do Servidor*</label>
         <input type="text" id="nome_servidor" name="nome_servidor" maxlength="100" required />
       </div>
 
       <div>
-        <label for="tipo_usuario">Tipo de Usuário</label>
+        <label for="tipo_usuario">Tipo de Usuário*</label>
         <select id="tipo_usuario" name="tipo_de_usuario" required>
           <option value="servidorPublico">Servidor público</option>
           <option value="acompanhante">Acompanhante</option>
@@ -41,12 +41,12 @@
       </div>
 
       <div>
-        <label for="nome_acompanhante">Nome do Acompanhante (se houver*)</label>
+        <label for="nome_acompanhante">Nome do Acompanhante (se houver)</label>
         <input type="text" id="nome_acompanhante" name="nome_acompanhante" maxlength="100" />
       </div>
 
       <div>
-        <label for="telefone">Telefone</label>
+        <label for="telefone">Telefone*</label>
         <input type="text" id="telefone" name="telefone" maxlength="100" placeholder="(xx)xxxxx-xxxx" required />
       </div>
       <script>
@@ -58,7 +58,7 @@
       </div>
 
       <div>
-        <label for="tipo_atendimento">Tipo de Atendimento</label>
+        <label for="tipo_atendimento">Tipo de Atendimento*</label>
         <select id="tipo_atendimento" name="tipo" required>
           <option value="consulta">Consulta</option>
           <option value="atestado">Homologação de Atestado</option>
@@ -66,7 +66,7 @@
       </div>
 
       <div>
-        <label for="data_agendamento">Data do Agendamento</label>
+        <label for="data_agendamento">Data do Agendamento*</label>
         <input type="date" id="data_agendamento" name="data_agendamento" required />
       </div>
 
@@ -117,7 +117,7 @@
       const dataSelecionada = new Date(ano, mes - 1, dia);
       console.log(dataSelecionada);
       const diaSemana = dataSelecionada.getDay();  
-      console.log(diaSemana);
+    
     //  const diaSemana = diaSemana[dataSelecionada.getDay()]; 
      // const hoje = new Date();
      //const diasDaSemana = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"];

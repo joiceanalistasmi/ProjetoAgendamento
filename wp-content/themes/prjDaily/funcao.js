@@ -1,8 +1,7 @@
 function validarCampos(formAgenda){   
     if (document.formAgenda.nome_servidor.value == "" && document.formAgenda.telefone.value == "" && 
         document.formAgenda.tipo.value == "" && document.formAgenda.data_agendamento.value &&
-        document.formAgenda.horario.value == "" && document.formAgenda.turno.value  == ""
-        ){
+        document.formAgenda.horario.value == ""          ){
             alert("Existe campos Obrigatorios não Preenchidos.");
 
     }
