@@ -6,9 +6,10 @@ date_default_timezone_set('America/Sao_Paulo');
 <!DOCTYPE html>
 <html lang='pt-BR'>
 <head>
-    <meta charset='UTF-8'>
+    <meta charset='UTF-8' name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualização de Agendamentos</title>
     <link rel='stylesheet' href='style.css'>
+    <link rel='stylesheet' href="responsive.css">
     <script src="funcao.js"></script>
 </head>
 <body>
@@ -17,6 +18,7 @@ date_default_timezone_set('America/Sao_Paulo');
     <div>  <img src="imagens/prefeitura.jpg" alt="Prefeitura de São Miguel do Iguaçu" >
     </div>
 </header>
+
 <section>
     <h2 class="">Visualizar agendamentos de Perícia Médica - Segurança do Trabalho</h2>
     <br>
@@ -96,9 +98,11 @@ date_default_timezone_set('America/Sao_Paulo');
                     <button type='button' class='btn btn-info visualizar-btn' data-details='$details'>Visualizar</button>
                     <a href='editarAgendamento.php?id=" . $row['id'] . "' class='btn btn-primary'>Editar</a>
                     <a href='excluirAgendamento.php?id=" . $row['id'] . "' class='btn btn-danger' onclick=\"return confirm('Tem certeza que deseja excluir este agendamento?');\">Excluir</a>
-                </td>";
+                     
+                    </td>";
                 echo "</tr>";
             }
+
 
             echo "</tbody>";
             echo "</table>";
@@ -150,5 +154,6 @@ window.onclick = function(event) {
 };
 };
 </script>
+ 
 
-<?php session_destroy(); ?>
+ 

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <script src="funcao.js"></script>
+    <link rel='stylesheet' href="responsive.css">
 </head>
 
 <body class="bg-light py-5">
@@ -22,14 +23,13 @@
             <div class="col-md-8 col-lg-6">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h2 class="card-title text-center mb-4"> <i>Editar</i>:
-                            Agendamento para perícia médica - Segurança do trabalho</h2>
+                        <h2 class="card-title text-center mb-4"> <i>Modo edição: 
+                            agendamento para perícia médica - Segurança do trabalho</i></h2>
 
                         <?php
                         include("conexao.php");
                         require 'funcoesPhp.php';
 
-                        // Processa atualização se enviado via POST
                         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn-gravar'])) {
                             $id = intval($_POST['id']);
                             $nome_servidor = $_POST['nome_servidor'];
@@ -104,11 +104,13 @@
 
                                     <div class="mb-3">
                                         <label for="horario" class="form-label">Horário</label>
-                                        <input type="time" class="form-control" id="horario" name="horario"
-                                            value="<?php echo htmlspecialchars($agendamento['horario']); ?>" required>
-
-
+                                        <select id="horario" name="horario" class="form-select" required>
+                                            <option value="<?php echo $agendamento['horario']; ?>" selected>
+                                                <?php echo $agendamento['horario']; ?>
+                                            </option>
+                                        </select>
                                     </div>
+
                                     <div class="mb-4">
                                         <label for="status" class="form-label">Status</label>
                                         <select id="status" name="status" class="form-select" required>
@@ -141,46 +143,48 @@
         <p>&copy; Prefeitura de São Miguel do Iguaçu - Todos os direitos reservados.</p>
     </footer>
 
-<script>
-    const dataInput = document.getElementById('data_agendamento');
-    const horarioSelect = document.getElementById('horario');
+    <script>
+        const dataInput = document.getElementById('data_agendamento');
+        const horarioSelect = document.getElementById('horario');
 
-    const horariosPorDia = { /* aqui refere-se aos dias da semana */ 
-      0: ['Domingo'],
-      1: ["07:30", "07:40", "07:50", "08:00", "08:10", "08:20", "08:30", "08:40", "08:50", "09:00", "09:10", "09:20", "09:30", "09:40", "09:50", "10:00", "10:10", "10:20", "10:30", "10:40", "10:50", "11:00", "11:10", "11:20"], // Segunda
-      2: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"], // Terça
-      3: ["07:30", "07:40", "07:50", "08:00", "08:10", "08:20", "08:30", "08:40", "08:50", "09:00", "09:10", "09:20", "09:30", "09:40", "09:50", "10:00", "10:10", "10:20", "10:30", "10:40", "10:50", "11:00", "11:10", "11:20"], // Quarta
-      4: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"], // Quinta
-      5: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"] ,
-      6: ['Sábado'] 
-    };
+        const horariosPorDia = {
+            0: [], // Domingo - fora
+            1: ["07:30", "07:40", "07:50", "08:00", "08:10", "08:20", "08:30", "08:40", "08:50", "09:00", "09:10", "09:20", "09:30", "09:40", "09:50", "10:00", "10:10", "10:20", "10:30", "10:40", "10:50", "11:00", "11:10", "11:20"],
+            2: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"],
+            3: ["07:30", "07:40", "07:50", "08:00", "08:10", "08:20", "08:30", "08:40", "08:50", "09:00", "09:10", "09:20", "09:30", "09:40", "09:50", "10:00", "10:10", "10:20", "10:30", "10:40", "10:50", "11:00", "11:10", "11:20"],
+            4: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"],
+            5: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"],
+            6: [] // Sábado - fora 
+        };
 
-    dataInput.addEventListener('change', function () {
-      const [ano, mes, dia] = this.value.split('-').map(Number);
-      const dataSelecionada = new Date(ano, mes - 1, dia);
-      console.log(dataSelecionada);
-      const diaSemana = dataSelecionada.getDay();  
-    
-      horarioSelect.innerHTML = ''; //limpa campo
+        const horarioAtual = "<?php echo $agendamento['horario']; ?>";
 
-      if (horariosPorDia[diaSemana]) {
-        horariosPorDia[diaSemana].forEach(hora => {
-          const option = document.createElement('option');
-          option.value = hora;
-          option.textContent = hora;
-          horarioSelect.appendChild(option);
-          horario = hora;
-          console.log("Horário selecionado: " + horario);
+        dataInput.addEventListener('change', function() {
+            const [ano, mes, dia] = this.value.split('-').map(Number);
+            const dataSelecionada = new Date(ano, mes - 1, dia);
+            const diaSemana = dataSelecionada.getDay();  
+
+            horarioSelect.innerHTML = '';  //clear 
+
+            if (horariosPorDia[diaSemana] && horariosPorDia[diaSemana].length > 0) {
+                horariosPorDia[diaSemana].forEach(hora => {
+                    const option = document.createElement('option');
+                    option.value = hora;
+                    option.textContent = hora;
+                    if (hora === horarioAtual) {
+                        option.selected = true;
+                    }
+                    horarioSelect.appendChild(option);
+                });
+            } else {
+                const option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'Sem horários disponíveis para este dia';
+                horarioSelect.appendChild(option);
+            }
         });
-      } else {
-        const option = document.createElement('option');
-        option.value = '';
-        option.textContent = 'Sem horários disponíveis para este dia';
-        horarioSelect.appendChild(option);
-      }
-    });
+    </script>
 
-  </script>
 
 </body>
 

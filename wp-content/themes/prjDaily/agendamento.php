@@ -10,6 +10,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
   <script src="funcao.js"></script>
+  <link rel='stylesheet' href="responsive.css">
 </head>
 
 <body>
@@ -21,7 +22,7 @@
   </header>
 
   <div>
-    <h2>Formulário de Agendamento - Agendamento para perícia médica - Segurança do trabalho</h2>
+    <h2>Formulário de Agendamento - Perícia médica - Segurança do trabalho</h2>
   </div>
 
   <section> 

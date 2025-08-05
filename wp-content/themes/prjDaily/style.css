@@ -37,6 +37,7 @@ section{
     position: relative;  
     padding-left: 3in;
     overflow: scroll;
+    justify-self: auto;
 }
 h2 {
     text-align: center;
@@ -223,21 +224,4 @@ button[type="reset"]:hover {
     background-color: #117a8b;
 }
 
-/* Estilos responsivos */
-@media (max-width: 600px) {
-    body {
-        font-size: 14px;
-    }
 
-    header, footer {
-        padding: 0.5em 0;
-    }
-
-    main {
-        padding: 0.5em;
-    }
-
-    .flex-item {
-        flex: 1 1 100%;
-    }
-}
