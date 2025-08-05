@@ -14,7 +14,8 @@
 </head>
 
 <body>
-  <header>
+
+    <header>
     <img src="imagens/logo1.jpg" alt="Logo" class="logo">
     <div>
       <img src="imagens/prefeitura.jpg" alt="Prefeitura de São Miguel do Iguaçu">

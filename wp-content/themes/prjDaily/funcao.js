@@ -11,6 +11,11 @@ function validarCampos(formAgenda){
           $('#telefone').mask('(00) 0000-0000');
 });
 
+
+function modoEscuro() {
+  let x = document.body;
+  x.classList.toggle("w3-black");
+}
 /*
 // funcao para o modal 
 window.onload = function(){
