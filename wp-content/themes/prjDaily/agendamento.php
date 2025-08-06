@@ -43,7 +43,7 @@
       </div>
 
       <div>
-        <label for="nome_acompanhante">Nome do Acompanhante (se houver)</label>
+        <label for="nome_acompanhante">Nome do Acompanhante (quando necessario)</label>
         <input type="text" id="nome_acompanhante" name="nome_acompanhante" maxlength="100" />
       </div>
 
@@ -56,7 +56,7 @@
       </script>
       <div>
         <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" maxlength="100" />
+        <input type="email" id="email" name="email" maxlength="100" onchange="mascaraEmail(this.value)" />
       </div>
 
       <div>

@@ -11,34 +11,17 @@ function validarCampos(formAgenda){
           $('#telefone').mask('(00) 0000-0000');
 });
 
-
+/* desconsiderar por enquanto */
 function modoEscuro() {
   let x = document.body;
   x.classList.toggle("w3-black");
 }
-/*
-// funcao para o modal 
-window.onload = function(){
-document.querySelectorAll('.visualizar-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        var details = JSON.parse(this.getAttribute('data-details'));
-        var html = '';
-        for (var key in details) {
-            html += '<p><strong>' + key + ':</strong> ' + details[key] + '</p>';
-        }
-        document.getElementById('modalDetalhes').innerHTML = html;
-        document.getElementById('detalheModal').style.display = 'block';
-    });
-});
-
-document.getElementById('fecharModal').onclick = function() {
-    document.getElementById('detalheModal').style.display = 'none';
-};
-
-window.onclick = function(event) {
-    var modal = document.getElementById('detalheModal');
-    if (event.target == modal) {
-        modal.style.display = 'none';
+ 
+function mascaraEmail(input){
+    var email = input.value;
+    var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!regex.test(email)) {
+        alert("Por favor, insira um endereço de e-mail válido.");
+        input.value = "";
     }
-};
-};*/
+}

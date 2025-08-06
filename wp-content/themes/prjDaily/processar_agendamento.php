@@ -50,7 +50,7 @@ if (
             if ($resultadoEmail === true) {
                 echo "<script>alert('Registro gravado e e-mail enviado com sucesso!'); window.location.href = 'https://saomiguel.pr.gov.br/';</script>";
             } else {
-                echo "<script>alert('Registro gravado, mas houve erro ao enviar o email'); window.location.href = 'agendamento.php';</script>";
+                echo "<script>alert('Registro gravado, mas houve erro ao enviar o email de Notificação'); window.location.href = 'agendamento.php';</script>";
             }
             exit;
         }

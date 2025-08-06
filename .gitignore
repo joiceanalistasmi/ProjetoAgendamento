@@ -1,1 +1,16 @@
 /vendor/
+
+wp-config.php
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/backups/
+*.log
+*.sql
+*.zip
+*.tar.gz
+*.env
+node_modules/
+vendor/
+.DS_Store
+Thumbs.db

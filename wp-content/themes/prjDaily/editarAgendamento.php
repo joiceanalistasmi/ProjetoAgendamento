@@ -23,8 +23,8 @@
             <div class="col-md-8 col-lg-6">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h2 class="card-title text-center mb-4"> <i>Modo edição: 
-                            agendamento para perícia médica - Segurança do trabalho</i></h2>
+                        <h2 class="card-title text-center mb-4"> <i>Modo edição:
+                                agendamento para perícia médica - Segurança do trabalho</i></h2>
 
                         <?php
                         include("conexao.php");
@@ -84,9 +84,20 @@
                                             <option value="acompanhante" <?php echo ($agendamento['tipo_de_usuario'] == 'acompanhante') ? 'selected' : ''; ?>>Acompanhante</option>
                                         </select>
                                     </div>
+                                    <div>
+                                        <label for="nome_acompanhante">Nome do Acompanhante (quando necessario)</label>
+                                        <input type="text" class="form-control" id="nome_acompanhante" name="nome_acompanhante"
+                                            value="<?php echo htmlspecialchars($agendamento['nome_servidor']); ?>" maxlength="100" required>
+                                    </div>
                                     <div class="mb-3">
                                         <label for="email" class="form-label">E-mail</label>
                                         <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($agendamento['email']); ?>" maxlength="100" required>
+                                    </div>
+                                    <div>
+                                        <label for="telefone">Telefone*</label>
+                                        <input type="email" class="form-control" id="telefone" name="telefone" 
+                                             value="<?php echo htmlspecialchars($agendamento['telefone']); ?>" maxlength="14" required>
+                                    
                                     </div>
                                     <div class="mb-3">
                                         <label for="tipo" class="form-label">Tipo de Atendimento</label>
@@ -162,9 +173,9 @@
         dataInput.addEventListener('change', function() {
             const [ano, mes, dia] = this.value.split('-').map(Number);
             const dataSelecionada = new Date(ano, mes - 1, dia);
-            const diaSemana = dataSelecionada.getDay();  
+            const diaSemana = dataSelecionada.getDay();
 
-            horarioSelect.innerHTML = '';  //clear 
+            horarioSelect.innerHTML = ''; //clear 
 
             if (horariosPorDia[diaSemana] && horariosPorDia[diaSemana].length > 0) {
                 horariosPorDia[diaSemana].forEach(hora => {
