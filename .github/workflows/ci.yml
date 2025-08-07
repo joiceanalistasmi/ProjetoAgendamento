@@ -1,0 +1,32 @@
+name: PHP CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: [8.1, 8.2]
+
+    steps:
+      - name: 📥 Checkout do código
+        uses: actions/checkout@v3
+
+      - name: 🧰 Configurar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, intl, pdo
+          coverage: xdebug
+
+      - name: 📦 Instalar dependências com Composer
+        run: composer install --prefer-dist --no-progress
+
+      - name: 🧪 Rodar testes com PHPUnit
+        run: vendor/bin/phpunit
+
+      - name: ✅ Finalizado com sucesso
+        if: success()
+        run: echo "Testes concluídos com sucesso!"

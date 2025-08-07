@@ -103,7 +103,7 @@
                                         <label for="tipo" class="form-label">Tipo de Atendimento</label>
                                         <select id="tipo" name="tipo" class="form-select" required>
                                             <option value="consulta" <?php echo ($agendamento['tipo'] == 'consulta') ? 'selected' : ''; ?>>Consulta</option>
-                                            <option value="atestado" <?php echo ($agendamento['tipo'] == 'atestado') ? 'selected' : ''; ?>>Atestado</option>
+                                            <option value="homologacaoDeAtestado" <?php echo ($agendamento['tipo'] == 'atestado') ? 'selected' : ''; ?>>Homologação de Atestado</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">

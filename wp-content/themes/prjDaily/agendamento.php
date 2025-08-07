@@ -63,7 +63,7 @@
         <label for="tipo_atendimento">Tipo de Atendimento*</label>
         <select id="tipo_atendimento" name="tipo" required>
           <option value="consulta">Consulta</option>
-          <option value="atestado">Homologação de Atestado</option>
+          <option value="homologacaoDeAtestado">Homologação de Atestado</option>
         </select>
       </div>
 
