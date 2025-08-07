@@ -15,7 +15,7 @@ class ExemploTest extends TestCase
             'nome_servidor' => 'João Silva',
             'tipo_de_usuario' => 'servidorPublico',
             'nome_acompanhante' => '',
-            'telefone' => '(11)91234-5678',
+            'telefone' => '(45)99994-5678',
             'email' => '',
             'tipo' => 'consulta',   
             'data_agendamento' => '2024-07-01',
@@ -39,6 +39,10 @@ class ExemploTest extends TestCase
         $this->assertNotEmpty($_POST['data_agendamento']);
         $this->assertNotEmpty($_POST['horario']);
         $this->assertNotEmpty($_POST['status']);
+
+        print_r($_POST); // Exibe os dados do formulário para depuração
+        // Verifica se o telefone está no formato correto
+        $this->assertMatchesRegularExpression('/^\(\d{2}\)\d{5}-\d{4}$/', $_POST['telefone'], 'O telefone deve estar no formato (xx)xxxxx-xxxx');
 
     }
 }
