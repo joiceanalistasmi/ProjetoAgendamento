@@ -39,13 +39,14 @@ date_default_timezone_set('America/Sao_Paulo');
         </div> <br>
     </form>
     <?php 
-    if (isset($_GET['btn-search']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
-        $dataInicio  = $_GET['dataInicio'];
-        $dataFim     = $_GET['dataFim'];
+    if (isset($_POST['btn-search']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+        $dataInicio  = $_POST['dataInicio'];
+        $dataFim     = $_POST['dataFim'];
         // datas preenchidas com início <= fim
         if (!empty($dataInicio) && !empty($dataFim)) {
             if ($dataInicio <= $dataFim) {
-                $sqlVisualizarAgendamentos = mysqli_query($conexao, "SELECT * FROM agendamentos WHERE data_agendamento >= '$dataInicio' AND data_agendamento <= '$dataFim' 
+                $sqlVisualizarAgendamentos =
+                     mysqli_query($conexao, "SELECT * FROM agendamentos WHERE data_agendamento >= '$dataInicio' AND data_agendamento <= '$dataFim' 
                 ORDER BY data_agendamento DESC") or die("Erro ao consultar agendamentos. " . mysqli_error($conexao));
             } else {
                 echo "<script>alert('A data de início não pode ser maior que a data de fim.');</script>";
