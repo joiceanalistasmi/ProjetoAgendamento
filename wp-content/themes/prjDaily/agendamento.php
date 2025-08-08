@@ -82,9 +82,8 @@
       <div>
         <label for="status">Status</label>
         <select id="status" name="status" required>
-          <option value="confirmado" selected>Confirmado</option>
-          <option value="cancelado">Cancelado</option>
-          <option value="alterado">Alterado</option>
+          <option value="confirmado" selected>Agendar</option>
+          <option value="cancelado">Reagendar</option> 
         </select>
       </div>
 

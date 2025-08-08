@@ -95,9 +95,9 @@
                                     </div>
                                     <div>
                                         <label for="telefone">Telefone*</label>
-                                        <input type="email" class="form-control" id="telefone" name="telefone" 
-                                             value="<?php echo htmlspecialchars($agendamento['telefone']); ?>" maxlength="14" required>
-                                    
+                                        <input type="email" class="form-control" id="telefone" name="telefone"
+                                            value="<?php echo htmlspecialchars($agendamento['telefone']); ?>" maxlength="14" required>
+
                                     </div>
                                     <div class="mb-3">
                                         <label for="tipo" class="form-label">Tipo de Atendimento</label>
@@ -121,15 +121,18 @@
                                             </option>
                                         </select>
                                     </div>
-
                                     <div class="mb-4">
                                         <label for="status" class="form-label">Status</label>
                                         <select id="status" name="status" class="form-select" required>
+                                            <option value="pendente" <?php echo ($agendamento['status'] == 'pendente') ? 'selected' : ''; ?>>Pendente</option>
                                             <option value="confirmado" <?php echo ($agendamento['status'] == 'confirmado') ? 'selected' : ''; ?>>Confirmado</option>
                                             <option value="cancelado" <?php echo ($agendamento['status'] == 'cancelado') ? 'selected' : ''; ?>>Cancelado</option>
-                                            <option value="alterado" <?php echo ($agendamento['status'] == 'alterado') ? 'selected' : ''; ?>>Alterado</option>
+                                            <option value="reagendado" <?php echo ($agendamento['status'] == 'reagendado') ? 'selected' : ''; ?>>Reagendado</option>       
+                                            <option value="em_atendimento" <?php echo ($agendamento['status'] == 'em_atendimento') ? 'selected' : ''; ?>>Em atendimento</option>
+                                            <option value="finalizado" <?php echo ($agendamento['status'] == 'finalizado') ? 'selected' : ''; ?>>Finalizado</option>
                                         </select>
                                     </div>
+
                                     <div class="d-flex justify-content-between">
                                         <button type="submit" name="btn-gravar" class="btn btn-primary">Atualizar</button>
                                         <button type="reset" name="btn-reset" class="btn btn-secondary">Limpar</button>

@@ -1,19 +1,17 @@
-<?php
-//excluir o agendamento na página visualizaAgendamento.php
- 
-function excluirAgendamento($id)
-{
-    include("conexao.php");
-    if (isset($_GET['id'])) {
 
-        $sqlExcluirAgendamento = mysqli_query($conexao, " delete from agendamentos where id = " . $_GET['id']);
-        if ($sqlExcluirAgendamento) {
-            echo "<script>alert('Agendamento excluído com sucesso!');</script>";
-            //echo "<script>window.location.href='visualizaAgendamentos.php';</script>";
-        } else {
-            echo "<script>alert('Erro ao excluir o agendamento.');</script>";
-            echo "<script>window.location.href='visualizaAgendamentos.php';</script>";
-        }
-    }
+<?php
+include("conexao.php");
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $query = "DELETE FROM agendamentos WHERE id = '$id'";
+    mysqli_query($conexao, $query) or die("Erro ao excluir: " . mysqli_error($conexao));
 }
+
+// Redireciona de volta para a página de visualização com os filtros
+$dataInicio = $_GET['dataInicio'] ?? '';
+$dataFim = $_GET['dataFim'] ?? '';
+$btnSearch = $_GET['btn-search'] ?? '';
+header("Location: visualizarAgendamentos.php?dataInicio=$dataInicio&dataFim=$dataFim&btn-search=$btnSearch");
+exit;
 ?>

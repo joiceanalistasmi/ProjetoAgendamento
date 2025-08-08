@@ -39,11 +39,9 @@ date_default_timezone_set('America/Sao_Paulo');
         </div> <br>
     </form>
     <?php 
-    if (isset($_POST['btn-search']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
-
-        $dataInicio  = $_POST['dataInicio'];
-        $dataFim     = $_POST['dataFim'];
-
+    if (isset($_GET['btn-search']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
+        $dataInicio  = $_GET['dataInicio'];
+        $dataFim     = $_GET['dataFim'];
         // datas preenchidas com início <= fim
         if (!empty($dataInicio) && !empty($dataFim)) {
             if ($dataInicio <= $dataFim) {
@@ -97,8 +95,8 @@ date_default_timezone_set('America/Sao_Paulo');
                 echo "<td>
                     <button type='button' class='btn btn-info visualizar-btn' data-details='$details'>Visualizar</button>
                     <a href='editarAgendamento.php?id=" . $row['id'] . "' class='btn btn-primary'>Editar</a>
-                    <a href='excluirAgendamento.php?id=" . $row['id'] . "' class='btn btn-danger' onclick=\"return confirm('Tem certeza que deseja excluir este agendamento?');\">Excluir</a>
-                     
+                    <a href='excluirAgendamento.php?id=" . $row['id'] . "&dataInicio=$dataInicio&dataFim=$dataFim&btn-search=CONSULTAR' 
+                                class='btn btn-danger' onclick=\"return confirm('Tem certeza que deseja excluir este agendamento?');\">Excluir</a>
                     </td>";
                 echo "</tr>";
             }
