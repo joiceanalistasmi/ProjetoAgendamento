@@ -23,9 +23,7 @@
             <div class="col-md-8 col-lg-6">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h2 class="card-title text-center mb-4"> <i>Modo edição:
-                                agendamento para perícia médica - Segurança do trabalho</i></h2>
-
+                         <h2 class="titulo-centralizado"><b>Editar</b> Agendamento de Perícia Médica - Segurança do Trabalho</h2>
                         <?php
                         include("conexao.php");
                         require 'funcoesPhp.php';
@@ -91,7 +89,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="email" class="form-label">E-mail</label>
-                                        <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($agendamento['email']); ?>" maxlength="100" required>
+                                        <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($agendamento['email']); ?>"
+                                                 maxlength="100" onchange="mascaraEmail(this.value)" required>
                                     </div>
                                     <div>
                                         <label for="telefone">Telefone*</label>
@@ -103,7 +102,7 @@
                                         <label for="tipo" class="form-label">Tipo de Atendimento</label>
                                         <select id="tipo" name="tipo" class="form-select" required>
                                             <option value="consulta" <?php echo ($agendamento['tipo'] == 'consulta') ? 'selected' : ''; ?>>Consulta</option>
-                                            <option value="homologacaoDeAtestado" <?php echo ($agendamento['tipo'] == 'atestado') ? 'selected' : ''; ?>>Homologação de Atestado</option>
+                                            <option value="Homologacao_de_Atestado" <?php echo ($agendamento['tipo'] == 'atestado') ? 'selected' : ''; ?>>Homologação de Atestado</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">

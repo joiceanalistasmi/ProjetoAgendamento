@@ -21,12 +21,10 @@
       <img src="imagens/prefeitura.jpg" alt="Prefeitura de São Miguel do Iguaçu">
     </div>
   </header>
-
-  <div>
-    <h2>Formulário de Agendamento - Perícia médica - Segurança do trabalho</h2>
-  </div>
-
   <section> 
+    <div>
+    <h2 >Formulário de Agendamento - Perícia médica - Segurança do trabalho</h2>
+  </div>
     <form class="cadastro" action="processar_agendamento.php" name="formAgenda" id="formAgenda" method="POST"
       onsubmit="return validarCampos(document.formAgenda);">
       <div>
@@ -56,14 +54,14 @@
       </script>
       <div>
         <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" maxlength="100" onchange="mascaraEmail(this.value)" />
+        <input type="email" id="email" name="email" maxlength="100"  /> <!-- onchange="mascaraEmail(this.value)" -->
       </div>
 
       <div>
         <label for="tipo_atendimento">Tipo de Atendimento*</label>
         <select id="tipo_atendimento" name="tipo" required>
           <option value="consulta">Consulta</option>
-          <option value="homologacaoDeAtestado">Homologação de Atestado</option>
+          <option value="Homologacao_de_Atestado">Homologação de Atestado</option>
         </select>
       </div>
 

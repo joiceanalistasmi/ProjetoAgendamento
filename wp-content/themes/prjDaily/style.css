@@ -39,9 +39,17 @@ section{
     overflow: scroll;
     justify-self: auto;
 }
+ 
 h2 {
     text-align: center;
     color: rgb(50, 16, 143);
+}
+
+.titulo-centralizado {
+  text-align: justify;
+  margin-bottom: 20px;
+  font-size: 1.3em;
+  color: #185a99;
 }
 
 

@@ -20,7 +20,7 @@ date_default_timezone_set('America/Sao_Paulo');
 </header>
 
 <section>
-    <h2 class="">Visualizar agendamentos de Perícia Médica - Segurança do Trabalho</h2>
+    <h2 class="titulo-centralizado">Visualizar agendamentos de Perícia Médica - Segurança do Trabalho</h2>
     <br>
     <!-- botoes de pesquisa -->
     <form method="POST" action="" id="searchAgendamento">
