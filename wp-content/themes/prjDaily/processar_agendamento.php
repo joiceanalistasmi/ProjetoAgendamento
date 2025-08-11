@@ -61,14 +61,13 @@ if (
     session_destroy();
 }
 
-//verificar se horario esta disponivel para o agendamento, pois o horario pode estar ocupado por outro servidor
-/*
-
-*/
-
+ 
 //enviar a notitificação por e-mail
 include("notificacaoAgenda.php");
 $sqlnotificaUsuaruio = mysqli_query(
     $conexao,
     "INSERT INTO notificacoes (agendamento_id, tipo, data_envio) VALUES ('$id', '$tipo', NOW())"
 );
+
+
+?>
