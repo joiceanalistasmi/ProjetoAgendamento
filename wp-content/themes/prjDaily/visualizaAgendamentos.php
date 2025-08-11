@@ -31,7 +31,7 @@ date_default_timezone_set('America/Sao_Paulo');
             <label for="search_agendamento" class="form-label">Pesquisar Agendamentos:</label>
             <br>
             <label for="search_agendamento" class="form-label">Data(Inicial e Final)</label>
-            <input type="date" class="form-control" id="dataInicio" name="dataInicio" style=" width: 20%;" >
+            <input type="date" class="form-control" id="dataInicio" name="dataInicio"  style=" width: 20%;" >
             <span>até</span>
             <input type="date" class="form-control" id="dataFim" name="dataFim" style=" width: 20%;" >
           
@@ -152,7 +152,9 @@ window.onclick = function(event) {
     }
 };
 };
-</script>
- 
 
- 
+ //cls no Historico para voltar 
+  if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+  }
+</script>

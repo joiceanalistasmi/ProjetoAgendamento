@@ -41,7 +41,7 @@
       </div>
 
       <div>
-        <label for="nome_acompanhante">Nome do Acompanhante (quando necessario)</label>
+        <label for="nome_acompanhante">Nome do Acompanhante (quando necessário)</label>
         <input type="text" id="nome_acompanhante" name="nome_acompanhante" maxlength="100" />
       </div>
 
@@ -81,7 +81,7 @@
         <label for="status">Status</label>
         <select id="status" name="status" required>
           <option value="confirmado" selected>Agendar</option>
-          <option value="cancelado">Reagendar</option> 
+          <option value="cancelado">Remarcar</option> 
         </select>
       </div>
 

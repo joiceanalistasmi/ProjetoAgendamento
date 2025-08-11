@@ -12,14 +12,14 @@ if (
     isset($_POST['nome_servidor']) && isset($_POST['telefone']) && isset($_POST['tipo']) && isset($_POST['tipo_de_usuario'])
 ) {
 
-    $nome_servidor = $_POST["nome_servidor"];
-    $tipo_de_usuario = $_POST["tipo_de_usuario"];
+    $nome_servidor = htmlspecialchars($_POST["nome_servidor"]);
+    $tipo_de_usuario = htmlspecialchars($_POST["tipo_de_usuario"]);
     $nome_acompanhante = $_POST["nome_acompanhante"];
-    $email = $_POST["email"];
-    $tipo = $_POST["tipo"]; //se é consulta ou atestado
-    $telefone = $_POST["telefone"];
-    $data_agendamento = $_POST["data_agendamento"];
-    $horario = $_POST["horario"]; 
+    $email = filter_var($_POST["email"]);
+    $tipo = htmlspecialchars($_POST["tipo"]); //se é consulta ou atestado
+    $telefone = htmlspecialchars($_POST["telefone"]);
+    $data_agendamento = htmlspecialchars($_POST["data_agendamento"]);
+    $horario = htmlspecialchars($_POST["horario"]); 
     $status = $_POST["status"];
 
     if (
