@@ -84,7 +84,7 @@ date_default_timezone_set('America/Sao_Paulo');
                     'Data do Agendamento' => $row['data_agendamento'],
                     'Horário' => $row['horario'],
                     'Status' => $row['status']
-                ]), ENT_QUOTES, 'UTF-8');
+                ]), ENT_QUOTES, 'UTF-8');    
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['nome_servidor']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['tipo_de_usuario']) . "</td>";
