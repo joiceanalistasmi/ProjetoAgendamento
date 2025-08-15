@@ -17,8 +17,8 @@ function enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $tipo, $dat
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'joice.smipm@gmail.com';
-        $mail->Password   = 'jvco myeg munj budd';// senha criada pelo google 
+        $mail->Username   = 'joice.analistasmi@gmail.com'; //modificar
+        $mail->Password   = '';// senha criada pelo google 
         $mail->SMTPSecure = 'tls';
         $mail->Port       = 587;
 
@@ -28,8 +28,8 @@ function enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $tipo, $dat
         // Conteúdo
         $mail->isHTML(true);
         $mail->Subject = 'Notificação da Perícia médica - Prefeitura de São Miguel do Iguaçu';
-        $mail->Body    = '<strong> O ' .$nome_servidor. ' agendou um exame de Perícia médica para a data: ' . $data_agendamento . ' as ' . $horario . '</strong>';
-        $mail->AltBody = ' O ' .$nome_servidor. ' agendou um exame de Perícia médica para a ' . $data_agendamento . ' as ' . $horario;
+        $mail->Body    = '<strong> O ' .$nome_servidor. ' agendou uma consulta para a data: ' . $data_agendamento . ' as ' . $horario . '</strong>';
+        $mail->AltBody = ' O ' .$nome_servidor. '  agendou uma consulta para a ' . $data_agendamento . ' as ' . $horario;
         
         $mail->SMTPDebug = 2; 
         $mail->Debugoutput = 'html';
@@ -40,5 +40,6 @@ function enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $tipo, $dat
         return "Erro ao enviar e-mail: {$mail->ErrorInfo}";
     }
 }
+
 
 ?>

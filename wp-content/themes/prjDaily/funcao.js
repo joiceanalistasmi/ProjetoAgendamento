@@ -5,14 +5,14 @@ function validarCampos(formAgenda){
             alert("Existe campos Obrigatorios não Preenchidos.");
 
     }
-
+ 
     var email = formAgenda.email.value;
     var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!regex.test(email)) {
         alert("Por favor, insira um endereço de e-mail válido.");
         formAgenda.email.value = "";
     }
-}
+} 
 //Mascara para o numero de telefone 
  $(document).ready(function(){
           $('#telefone').mask('(00) 0000-0000');
@@ -32,3 +32,20 @@ function mascaraEmail(input){
         input.value = "";
     }
 }*/
+
+function atualizarPagina() {
+         fetch('visualizaAgendamentos.php')
+             .then(response => response.json())
+             .then(dados => {
+                 // Lógica para atualizar a página com os dados recebidos
+                 // Por exemplo:
+                 let elemento = document.getElementById('id');
+                 elemento.innerHTML = ''; // Limpa o conteúdo atual
+                 dados.forEach(item => {
+                     let novoItem = document.createElement('div');
+                     novoItem.textContent = item.nome + ': ' + item.valor;
+                     elemento.appendChild(novoItem);
+                 });
+             })
+             .catch(error => console.error('Erro:', error));
+     }

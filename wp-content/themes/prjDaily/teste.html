@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="responsive.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <script src="funcao.js"></script>
+  </head>
+  <body>
+      
+    <form method="post" action="tabelaAgendamentos.php">
+    <div id="tabelaAgendamentos" ></div> 
+    </form>
+    <script> 
+     
+      function carregarTabela() { 
+        var dataInicio = document.getElementById("dataInicio").value;
+        var dataFim = document.getElementById("dataFim").value;
+        
+        var formData = new FormData();
+        formData.append("dataInicio", dataInicio);
+        formData.append("dataFim", dataFim);
+       
+        fetch("tabelaAgendamentos.php", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.text())
+          .then((html) => {
+            document.getElementById("tabelaAgendamentos").innerHTML = html;
+            atribuirEventosModal(); // Reatribui os eventos do botão visualizar
+          })
+          .catch((error) => console.error("Erro ao carregar tabela:", error));
+      }
+
+      // Reatribuir os eventos do botão de modal após atualizar a tabela
+      function atribuirEventosModal() {
+        document.querySelectorAll(".visualizar-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var details = JSON.parse(this.getAttribute("data-details"));
+            var html = "";
+            for (var key in details) {
+              html +=
+                "<p><strong>" + key + ":</strong> " + details[key] + "</p>";
+            }
+            document.getElementById("modalDetalhes").innerHTML = html;
+            document.getElementById("detalheModal").style.display = "block";
+          });
+        });
+      }
+
+      // Fechar modal
+      document.getElementById("fecharModal").onclick = function () {
+        document.getElementById("detalheModal").style.display = "none";
+      };
+      window.onclick = function (event) {
+        var modal = document.getElementById("detalheModal");
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      // Atualiza a tabela inicialmente e a cada 10 segundos
+      carregarTabela();
+      setInterval(carregarTabela, 5000);
+    </script>
+  </body>
+</html>
