@@ -7,7 +7,7 @@ require 'vendor/autoload.php';
 include("conexao.php");
 
 
-function enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $tipo, $data_agendamento, $horario)
+function enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $telefone, $tipo, $data_agendamento, $horario)
 {
     $mail = new PHPMailer(true);
 
@@ -18,7 +18,7 @@ function enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $tipo, $dat
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
         $mail->Username   = 'joice.analistasmi@gmail.com'; //modificar
-        $mail->Password   = '';// senha criada pelo google 
+        $mail->Password   = 'wbin yagc picn npvn';// senha criada pelo google 
         $mail->SMTPSecure = 'tls';
         $mail->Port       = 587;
 

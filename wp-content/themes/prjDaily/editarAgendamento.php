@@ -33,6 +33,7 @@
                             $nome_servidor = $_POST['nome_servidor'];
                             $tipo_de_usuario = $_POST['tipo_de_usuario'];
                             $email = $_POST['email'];
+                            $telefone = $_POST['telefone'];
                             $tipo = $_POST['tipo'];
                             $data_agendamento = $_POST['data_agendamento'];
                             $horario = $_POST['horario'];
@@ -42,13 +43,14 @@
                                 nome_servidor = '$nome_servidor',
                                 tipo_de_usuario = '$tipo_de_usuario',
                                 email = '$email',
+                                telefone = '$telefone',
                                 tipo = '$tipo',
                                 data_agendamento = '$data_agendamento', 
                                 horario = '$horario',
                                 status = '$status' 
                                 WHERE id = $id";
                             //envia notificação por e-mail
-                            $resultadoEmail = enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $tipo, $data_agendamento, $horario);
+                            $resultadoEmail = enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $telefone, $tipo, $data_agendamento, $horario);
                             if ($resultadoEmail !== true) {
                                 echo "<script>alert('Erro ao enviar e-mail: $resultadoEmail');</script>";
                             }
@@ -90,12 +92,12 @@
                                     <div class="mb-3">
                                         <label for="email" class="form-label">E-mail</label>
                                         <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($agendamento['email']); ?>"
-                                                 maxlength="100" onchange="mascaraEmail(this.value)" required>
+                                                 maxlength="100" onchange="mascaraEmail(this.value)"  >
                                     </div>
                                     <div>
                                         <label for="telefone">Telefone*</label>
-                                        <input type="email" class="form-control" id="telefone" name="telefone"
-                                            value="<?php echo htmlspecialchars($agendamento['telefone']); ?>" maxlength="14" required>
+                                        <input type="tel" class="form-control" id="telefone" name="telefone"
+                                            value="<?php echo htmlspecialchars($agendamento['telefone']); ?>" maxlength="14" >
 
                                     </div>
                                     <div class="mb-3">

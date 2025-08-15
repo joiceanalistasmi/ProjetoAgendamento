@@ -17,7 +17,7 @@ function validarCampos(formAgenda){
  $(document).ready(function(){
           $('#telefone').mask('(00) 0000-0000');
 });
-
+ 
 /* desconsiderar por enquanto */
 function modoEscuro() {
   let x = document.body;
