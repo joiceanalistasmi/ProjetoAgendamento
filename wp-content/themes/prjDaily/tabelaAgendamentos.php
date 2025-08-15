@@ -1,9 +1,7 @@
-<?php
+ <?php
 include("conexao.php");
-
 date_default_timezone_set('America/Sao_Paulo');
 
- 
 $dataInicio = $_POST['dataInicio'] ?? '';
 $dataFim = $_POST['dataFim'] ?? '';
 
@@ -41,23 +39,17 @@ if ($sql && mysqli_num_rows($sql) > 0) {
         ]), ENT_QUOTES, 'UTF-8');
 
         echo "<tr>
-                <td>" . htmlspecialchars($row['nome_servidor']) . "</td>
-                <td>" . htmlspecialchars($row['tipo_de_usuario']) . "</td>
-                <td>" . htmlspecialchars($row['email']) . "</td>
-                <td>" . htmlspecialchars($row['tipo']) . "</td>
-                <td>" . htmlspecialchars($row['data_agendamento']) . "</td>
-                <td>" . htmlspecialchars($row['horario']) . "</td>
-                <td>" . htmlspecialchars($row['status']) . "</td>
+                <td>{$row['nome_servidor']}</td>
+                <td>{$row['tipo_de_usuario']}</td>
+                <td>{$row['email']}</td>
+                <td>{$row['tipo']}</td>
+                <td>{$row['data_agendamento']}</td>
+                <td>{$row['horario']}</td>
+                <td>{$row['status']}</td>
                 <td>
-                    <button type='button' class='btn btn-info visualizar-btn' data-details='$details'>
-                        <i class='bi bi-eye'></i>
-                    </button>
-                    <a href='editarAgendamento.php?id={$row['id']}' class='btn btn-primary'>
-                        <i class='bi bi-pencil'></i>
-                    </a>
-                    <a href='excluirAgendamento.php?id={$row['id']}&dataInicio=$dataInicio&dataFim=$dataFim&btn-search=CONSULTAR' class='btn btn-danger' onclick=\"return confirm('Tem certeza que deseja excluir este agendamento?');\">
-                        <i class='bi bi-x'></i>
-                    </a>
+                    <button class='btn btn-info visualizar-btn' data-details='$details'><i class='bi bi-eye'></i></button>
+                    <a href='editarAgendamento.php?id={$row['id']}' class='btn btn-primary'><i class='bi bi-pencil'></i></a>
+                    <a href='excluirAgendamento.php?id={$row['id']}' class='btn btn-danger' onclick=\"return confirm('Tem certeza que deseja excluir este agendamento?');\"><i class='bi bi-x'></i></a>
                 </td>
             </tr>";
     }
