@@ -1,5 +1,4 @@
 <?php
-// Função para enviar notificação por e-mail
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -11,7 +10,6 @@ include("conexao.php");
 function enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $telefone, $tipo, $data_agendamento, $horario)
 {
     $mail = new PHPMailer(true);
-
     try {
         // conf do servidor 
         //preciso verificar pois aqui esta o meu email 
@@ -19,7 +17,7 @@ function enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $telefone, 
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
         $mail->Username   = 'joice.analistasmi@gmail.com'; //modificar
-        $mail->Password   = 'wbin yagc picn npvn';// senha criada pelo google 
+        $mail->Password   = 'wbin yagc picn npvn';// senha criada google 
         $mail->SMTPSecure = 'tls';
         $mail->Port       = 587;
 

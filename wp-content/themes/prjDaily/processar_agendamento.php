@@ -3,7 +3,8 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require 'vendor/autoload.php';
-require 'funcoesPhp.php';
+
+require_once 'funcoesPhp.php';
 include("conexao.php");
 
 session_start();
@@ -46,7 +47,8 @@ if (
             ) or die("Erro ao gravar o registro. " . mysqli_error($conexao));
 
             // Envia o e-mail
-            $resultadoEmail = enviarNotificacao($nome_servidor, $tipo_de_usuario, $telefone, $email, $tipo, $data_agendamento, $horario);
+            
+            $resultadoEmail = enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $telefone, $tipo, $data_agendamento, $horario);
             if ($resultadoEmail === true) {
                 echo "<script>alert('Registro gravado e e-mail enviado com sucesso!'); window.location.href = 'https://saomiguel.pr.gov.br/';</script>";
             } else {

@@ -49,6 +49,7 @@
                                 horario = '$horario',
                                 status = '$status' 
                                 WHERE id = $id";
+                                
                             //envia notificação por e-mail
                             $resultadoEmail = enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $telefone, $tipo, $data_agendamento, $horario);
                             if ($resultadoEmail !== true) {
