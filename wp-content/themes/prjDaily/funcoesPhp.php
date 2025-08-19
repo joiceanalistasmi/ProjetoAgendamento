@@ -1,9 +1,10 @@
 <?php
 
+require __DIR__ . '/../../../vendor/autoload.php'; //mostra o caminho do arquivo
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-require_once __DIR__ . '/vendor/autoload.php'; 
-
+ 
 include("conexao.php");
 
 
@@ -17,7 +18,7 @@ function enviarNotificacao($nome_servidor, $tipo_de_usuario, $email, $telefone, 
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
         $mail->Username   = 'joice.analistasmi@gmail.com'; //modificar
-        $mail->Password   = 'wbin yagc picn npvn';// senha criada google 
+        $mail->Password   = 'naxk bdsi scla dtfj';// senha criada google 
         $mail->SMTPSecure = 'tls';
         $mail->Port       = 587;
 
